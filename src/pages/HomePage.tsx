@@ -19,11 +19,6 @@ export function HomePage() {
             <strong>{metricLabels[metric]}</strong>。
           </p>
         </div>
-        <div className="hero-stage" aria-hidden="true">
-          <div className="stage-orbit stage-orbit-a" />
-          <div className="stage-orbit stage-orbit-b" />
-          <div className="stage-grid" />
-        </div>
       </section>
 
       <section className="ranking-list">

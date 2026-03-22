@@ -50,7 +50,9 @@ export function getBarPercentage(value: number, min: number, max: number): numbe
     return 100;
   }
 
-  return ((value - min) / (max - min)) * 100;
+  const minimumVisiblePercent = 18;
+  const normalized = (value - min) / (max - min);
+  return minimumVisiblePercent + normalized * (100 - minimumVisiblePercent);
 }
 
 export function getUnitName(unit: UnitKey): string {
