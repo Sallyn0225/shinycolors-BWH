@@ -106,26 +106,27 @@ select {
   top: var(--sticky-gap);
   z-index: 10;
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 18px 28px;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 14px 18px;
   align-items: center;
-  padding: 18px 20px;
-  margin-bottom: 26px;
-  background: rgba(255, 255, 255, 0.74);
+  padding: 14px 18px;
+  margin-bottom: 18px;
+  background: rgba(255, 255, 255, 0.7);
   border: 1px solid var(--border);
-  border-radius: 26px;
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(22px);
+  border-radius: 22px;
+  box-shadow: 0 12px 32px rgba(130, 79, 123, 0.1);
+  backdrop-filter: blur(20px);
 }
 
 .site-header-controls {
-  grid-column: 1 / -1;
+  min-width: 0;
+  justify-self: end;
 }
 
 .brand-block {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
 }
 
 .brand-kicker,
@@ -140,19 +141,21 @@ select {
 
 .brand-mark {
   font-family: "Palatino Linotype", "Times New Roman", serif;
-  font-size: 1.2rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
 }
 
 .site-nav {
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+  gap: 8px;
+  flex-wrap: nowrap;
+  min-width: 0;
+  justify-self: center;
 }
 
 .site-nav a {
-  padding: 10px 16px;
+  padding: 8px 14px;
   border-radius: var(--radius-small);
   color: var(--muted);
   transition:
@@ -172,14 +175,14 @@ select {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: 8px;
+  flex-wrap: nowrap;
 }
 
 .chip-group {
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+  gap: 8px;
+  flex-wrap: nowrap;
 }
 
 .chip,
@@ -187,7 +190,7 @@ select {
   border: 1px solid rgba(45, 26, 57, 0.1);
   background: rgba(255, 255, 255, 0.8);
   color: var(--text);
-  padding: 10px 16px;
+  padding: 8px 14px;
   border-radius: var(--radius-small);
   cursor: pointer;
   transition:
@@ -209,7 +212,7 @@ select {
 }
 
 .chip-direction {
-  min-width: 108px;
+  min-width: 96px;
 }
 
 .page-mobile-controls {
@@ -691,7 +694,27 @@ select {
 
 @media (max-width: 1100px) {
   .site-header {
-    grid-template-columns: 1fr;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 12px 14px;
+  }
+
+  .site-header-controls {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+
+  .site-nav {
+    justify-self: start;
+    flex-wrap: wrap;
+  }
+
+  .control-strip,
+  .chip-group {
+    flex-wrap: wrap;
+  }
+
+  .control-strip {
+    justify-content: flex-start;
   }
 
   .compare-stage {
