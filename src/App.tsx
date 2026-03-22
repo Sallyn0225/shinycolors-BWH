@@ -27,7 +27,9 @@ export default function App() {
           <NavLink to="/compare">双人对比</NavLink>
         </nav>
 
-        <MetricToggle />
+        <div className="site-header-controls">
+          <MetricToggle />
+        </div>
       </header>
 
       <Routes>

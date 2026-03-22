@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import { useMemo, useState } from "react";
 import { idols } from "../data/idols";
+import { MetricToggle } from "../components/MetricToggle";
 import { compareMetrics, metricLabels } from "../lib/ranking";
 import { useRankingPreferences } from "../state/ranking-preferences";
 import { IdolVisual } from "../components/IdolVisual";
@@ -17,6 +18,10 @@ export function ComparePage() {
 
   return (
     <main className="page">
+      <section className="page-mobile-controls" aria-label="移动端对比维度控制">
+        <MetricToggle showDirection={false} />
+      </section>
+
       <section className="compare-pickers">
         <label className="picker">
           <span>左侧偶像</span>

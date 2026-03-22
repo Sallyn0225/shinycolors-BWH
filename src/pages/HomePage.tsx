@@ -1,4 +1,5 @@
 import { idols } from "../data/idols";
+import { MetricToggle } from "../components/MetricToggle";
 import { metricLabels, getMetricRange, sortIdols } from "../lib/ranking";
 import { useRankingPreferences } from "../state/ranking-preferences";
 import { RankingRow } from "../components/RankingRow";
@@ -19,6 +20,10 @@ export function HomePage() {
             <strong>{metricLabels[metric]}</strong>。
           </p>
         </div>
+      </section>
+
+      <section className="page-mobile-controls" aria-label="移动端排序控制">
+        <MetricToggle />
       </section>
 
       <section className="ranking-list">

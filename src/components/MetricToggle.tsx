@@ -4,7 +4,11 @@ import type { MetricKey } from "../types";
 
 const metrics: MetricKey[] = ["bust", "waist", "hips"];
 
-export function MetricToggle() {
+type MetricToggleProps = {
+  showDirection?: boolean;
+};
+
+export function MetricToggle({ showDirection = true }: MetricToggleProps) {
   const { metric, direction, setMetric, toggleDirection } = useRankingPreferences();
 
   return (
@@ -24,14 +28,16 @@ export function MetricToggle() {
         ))}
       </div>
 
-      <button
-        type="button"
-        className="chip chip-direction"
-        onClick={toggleDirection}
-        aria-label={`当前排序：${directionLabels[direction]}，点击切换`}
-      >
-        {direction === "desc" ? "↓" : "↑"} {directionLabels[direction]}
-      </button>
+      {showDirection ? (
+        <button
+          type="button"
+          className="chip chip-direction"
+          onClick={toggleDirection}
+          aria-label={`当前排序：${directionLabels[direction]}，点击切换`}
+        >
+          {direction === "desc" ? "↓" : "↑"} {directionLabels[direction]}
+        </button>
+      ) : null}
     </div>
   );
 }
