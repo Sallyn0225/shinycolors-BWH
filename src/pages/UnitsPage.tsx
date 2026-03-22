@@ -15,14 +15,6 @@ export function UnitsPage() {
 
   return (
     <main className="page">
-      <section className="section-heading">
-        <div>
-          <p className="section-kicker">组合聚合</p>
-          <h1>所有组合都在同一页展开</h1>
-        </div>
-        <p>上方 tag 负责快速跳转，下方每个组合内部都会按当前维度独立排行。</p>
-      </section>
-
       <UnitJumpTags />
 
       <div className="unit-section-list">

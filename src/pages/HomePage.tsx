@@ -26,14 +26,6 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="section-heading">
-        <div>
-          <p className="section-kicker">全员总榜</p>
-          <h2>从头到尾，一次看完</h2>
-        </div>
-        <p>列表会跟随顶部 tag 立即重排，方便切换不同维度观察整体分布。</p>
-      </section>
-
       <section className="ranking-list">
         {sorted.map((idol, index) => (
           <RankingRow

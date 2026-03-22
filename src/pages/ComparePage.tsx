@@ -20,16 +20,6 @@ export function ComparePage() {
 
   return (
     <main className="page">
-      <section className="section-heading">
-        <div>
-          <p className="section-kicker">双人对比</p>
-          <h1>任意两位偶像并排看</h1>
-        </div>
-        <p>
-          当前全站高亮维度是<strong>{metricLabels[metric]}</strong>，对比页会同步强调这一行。
-        </p>
-      </section>
-
       <section className="compare-pickers">
         <label className="picker">
           <span>左侧偶像</span>
@@ -40,7 +30,7 @@ export function ComparePage() {
                 value={idol.id}
                 disabled={idol.id === rightId}
               >
-                {idol.name}
+                {idol.japaneseName}
               </option>
             ))}
           </select>
@@ -57,7 +47,7 @@ export function ComparePage() {
                 value={idol.id}
                 disabled={idol.id === leftId}
               >
-                {idol.name}
+                {idol.japaneseName}
               </option>
             ))}
           </select>
