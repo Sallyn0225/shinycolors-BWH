@@ -1,7 +1,9 @@
 {
   "name": "shinycolors-bwh",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
+  "description": "A React + TypeScript + Vite visualizer for Shiny Colors B/W/H rankings and comparison.",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",

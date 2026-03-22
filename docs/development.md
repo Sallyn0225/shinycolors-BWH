@@ -7,7 +7,7 @@
 
 ## 先理解现在的结构
 
-应用入口在 [src/main.tsx](/E:/Download/others/agent-test/shinycolors-BWH/src/main.tsx)。
+应用入口在 [src/main.tsx](../src/main.tsx)。
 
 启动顺序是：
 
@@ -32,27 +32,27 @@ main.tsx
 
 ### 页面层
 
-- [src/pages/HomePage.tsx](/E:/Download/others/agent-test/shinycolors-BWH/src/pages/HomePage.tsx)：全员排行主页
-- [src/pages/UnitsPage.tsx](/E:/Download/others/agent-test/shinycolors-BWH/src/pages/UnitsPage.tsx)：按组合展示排行
-- [src/pages/ComparePage.tsx](/E:/Download/others/agent-test/shinycolors-BWH/src/pages/ComparePage.tsx)：双人对比
+- [src/pages/HomePage.tsx](../src/pages/HomePage.tsx)：全员排行主页
+- [src/pages/UnitsPage.tsx](../src/pages/UnitsPage.tsx)：按组合展示排行
+- [src/pages/ComparePage.tsx](../src/pages/ComparePage.tsx)：双人对比
 
 ### 组件层
 
-- [src/components/MetricToggle.tsx](/E:/Download/others/agent-test/shinycolors-BWH/src/components/MetricToggle.tsx)：全局维度切换和排序方向切换
-- [src/components/RankingRow.tsx](/E:/Download/others/agent-test/shinycolors-BWH/src/components/RankingRow.tsx)：排行列表单行
-- [src/components/IdolVisual.tsx](/E:/Download/others/agent-test/shinycolors-BWH/src/components/IdolVisual.tsx)：立绘加载与缺图占位
-- [src/components/UnitJumpTags.tsx](/E:/Download/others/agent-test/shinycolors-BWH/src/components/UnitJumpTags.tsx)：组合锚点导航
+- [src/components/MetricToggle.tsx](../src/components/MetricToggle.tsx)：全局维度切换和排序方向切换
+- [src/components/RankingRow.tsx](../src/components/RankingRow.tsx)：排行列表单行
+- [src/components/IdolVisual.tsx](../src/components/IdolVisual.tsx)：立绘加载与缺图占位
+- [src/components/UnitJumpTags.tsx](../src/components/UnitJumpTags.tsx)：组合锚点导航
 
 ### 数据与逻辑层
 
-- [src/data/idols.ts](/E:/Download/others/agent-test/shinycolors-BWH/src/data/idols.ts)：组合定义、偶像数据、来源链接
-- [src/lib/ranking.ts](/E:/Download/others/agent-test/shinycolors-BWH/src/lib/ranking.ts)：排序、均值、对比、条形图比例
-- [src/state/ranking-preferences.tsx](/E:/Download/others/agent-test/shinycolors-BWH/src/state/ranking-preferences.tsx)：全局偏好和持久化
-- [src/types.ts](/E:/Download/others/agent-test/shinycolors-BWH/src/types.ts)：类型约束
+- [src/data/idols.ts](../src/data/idols.ts)：组合定义、偶像数据、来源链接
+- [src/lib/ranking.ts](../src/lib/ranking.ts)：排序、均值、对比、条形图比例
+- [src/state/ranking-preferences.tsx](../src/state/ranking-preferences.tsx)：全局偏好和持久化
+- [src/types.ts](../src/types.ts)：类型约束
 
 ### 样式层
 
-- [src/styles.css](/E:/Download/others/agent-test/shinycolors-BWH/src/styles.css)：所有页面共享的视觉风格与响应式规则
+- [src/styles.css](../src/styles.css)：所有页面共享的视觉风格与响应式规则
 
 ## 现有数据流
 
@@ -69,7 +69,7 @@ main.tsx
 
 ### 新增或修改偶像数据
 
-直接编辑 [src/data/idols.ts](/E:/Download/others/agent-test/shinycolors-BWH/src/data/idols.ts)。
+直接编辑 [src/data/idols.ts](../src/data/idols.ts)。
 
 要一起确认的字段：
 
@@ -79,16 +79,16 @@ main.tsx
 - `sourceUrl` 是否可追溯
 - 立绘文件名是否与 `id` 完全一致
 
-如果只补立绘，不改数据，按 [docs/idol-assets.md](/E:/Download/others/agent-test/shinycolors-BWH/docs/idol-assets.md) 放文件即可。
+如果只补立绘，不改数据，按 [docs/idol-assets.md](./idol-assets.md) 放文件即可。
 
 ### 新增一个排行维度
 
 这个改动不是只改一处，至少会影响下面几个位置：
 
-1. [src/types.ts](/E:/Download/others/agent-test/shinycolors-BWH/src/types.ts) 里的 `MetricKey`
-2. [src/data/idols.ts](/E:/Download/others/agent-test/shinycolors-BWH/src/data/idols.ts) 里的 `measurements`
-3. [src/lib/ranking.ts](/E:/Download/others/agent-test/shinycolors-BWH/src/lib/ranking.ts) 里的 `metricLabels` 和对比逻辑
-4. [src/components/MetricToggle.tsx](/E:/Download/others/agent-test/shinycolors-BWH/src/components/MetricToggle.tsx) 里的按钮列表
+1. [src/types.ts](../src/types.ts) 里的 `MetricKey`
+2. [src/data/idols.ts](../src/data/idols.ts) 里的 `measurements`
+3. [src/lib/ranking.ts](../src/lib/ranking.ts) 里的 `metricLabels` 和对比逻辑
+4. [src/components/MetricToggle.tsx](../src/components/MetricToggle.tsx) 里的按钮列表
 
 如果未来要加 `height`、`age` 这种非三围数据，建议先把 `measurements` 更名成更泛化的字段，再做一次小重构。
 
@@ -97,13 +97,13 @@ main.tsx
 按这个顺序做最稳：
 
 1. 在 `src/pages/` 新建页面组件
-2. 在 [src/App.tsx](/E:/Download/others/agent-test/shinycolors-BWH/src/App.tsx) 增加 `Route`
+2. 在 [src/App.tsx](../src/App.tsx) 增加 `Route`
 3. 需要导航入口的话，同样在 `src/App.tsx` 增加 `NavLink`
-4. 在 [src/styles.css](/E:/Download/others/agent-test/shinycolors-BWH/src/styles.css) 补页面样式
+4. 在 [src/styles.css](../src/styles.css) 补页面样式
 
 ### 替换或调整视觉风格
 
-当前视觉主要集中在 [src/styles.css](/E:/Download/others/agent-test/shinycolors-BWH/src/styles.css) 的这几块：
+当前视觉主要集中在 [src/styles.css](../src/styles.css) 的这几块：
 
 - `:root` 里的颜色变量、容器宽度、圆角、阴影
 - `.site-header` 和 `.hero-panel` 的舞台风格
@@ -127,6 +127,14 @@ main.tsx
 ### 2. 路由需要部署侧配合
 
 项目使用 `BrowserRouter`。如果部署平台没有把未知路径重写到 `index.html`，刷新 `/units` 或 `/compare` 会直接 404。
+
+当前仓库已经补了这几类配置：
+
+- `vercel.json`：给 Vercel 做 SPA rewrite
+- `netlify.toml`：声明 Netlify 的构建命令和发布目录
+- `public/_redirects`：给 Netlify 和 Cloudflare Pages 做静态回退
+
+如果后面继续接 GitHub Releases，发布说明可以直接基于 `docs/releases/` 里的版本文档整理。
 
 ### 3. 数据和视图强耦合
 
