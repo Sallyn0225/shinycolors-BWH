@@ -1,10 +1,20 @@
 :root {
-  --bg: #fff9f7;
-  --surface: rgba(255, 255, 255, 0.78);
-  --text: #201922;
-  --muted: #6c6574;
-  --border: rgba(65, 38, 87, 0.12);
-  --shadow: 0 20px 60px rgba(130, 79, 123, 0.12);
+  --bg: #f5f1ee;
+  --surface: rgba(255, 252, 249, 0.82);
+  --text: #241f24;
+  --muted: #716a72;
+  --border: rgba(70, 56, 71, 0.1);
+  --shadow: 0 20px 60px rgba(92, 80, 89, 0.1);
+  --surface-strong: rgba(255, 253, 251, 0.88);
+  --surface-soft: rgba(252, 248, 245, 0.74);
+  --surface-tint: rgba(244, 239, 235, 0.9);
+  --theme-rose: #b59aa6;
+  --theme-sage: #9eafa8;
+  --theme-iris: #9b9ab2;
+  --interactive: #8a7480;
+  --interactive-strong: #6f7487;
+  --track: rgba(64, 52, 65, 0.08);
+  --track-strong: rgba(64, 52, 65, 0.14);
   --radius-large: 28px;
   --radius-small: 999px;
   --container: min(1180px, calc(100vw - 40px));
@@ -14,9 +24,9 @@
   font-family: "Trebuchet MS", "Segoe UI", "Microsoft YaHei UI", sans-serif;
   color: var(--text);
   background:
-    radial-gradient(circle at top left, rgba(255, 95, 146, 0.18), transparent 30%),
-    radial-gradient(circle at top right, rgba(49, 215, 143, 0.18), transparent 25%),
-    linear-gradient(180deg, #fffdfb 0%, #fff6fa 42%, #f7fbff 100%);
+    radial-gradient(circle at top left, color-mix(in srgb, var(--theme-rose) 22%, transparent), transparent 34%),
+    radial-gradient(circle at top right, color-mix(in srgb, var(--theme-sage) 20%, transparent), transparent 28%),
+    linear-gradient(180deg, #fbf8f5 0%, #f5f0ec 42%, #edf1f4 100%);
 }
 
 * {
@@ -39,8 +49,8 @@ body::before {
   position: fixed;
   inset: 0;
   background:
-    linear-gradient(rgba(255, 255, 255, 0.58) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.58) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.52) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.52) 1px, transparent 1px);
   background-size: 38px 38px;
   opacity: 0.28;
   pointer-events: none;
@@ -82,7 +92,7 @@ select {
   left: -60px;
   width: 220px;
   height: 220px;
-  background: rgba(255, 79, 139, 0.26);
+  background: color-mix(in srgb, var(--theme-rose) 34%, transparent);
 }
 
 .backdrop-b {
@@ -90,7 +100,7 @@ select {
   right: -30px;
   width: 280px;
   height: 280px;
-  background: rgba(30, 216, 194, 0.22);
+  background: color-mix(in srgb, var(--theme-sage) 30%, transparent);
 }
 
 .backdrop-c {
@@ -98,7 +108,7 @@ select {
   left: 30%;
   width: 300px;
   height: 300px;
-  background: rgba(123, 92, 255, 0.16);
+  background: color-mix(in srgb, var(--theme-iris) 28%, transparent);
 }
 
 .site-header {
@@ -111,10 +121,10 @@ select {
   align-items: center;
   padding: 14px 18px;
   margin-bottom: 18px;
-  background: rgba(255, 255, 255, 0.7);
+  background: var(--surface-soft);
   border: 1px solid var(--border);
   border-radius: 22px;
-  box-shadow: 0 12px 32px rgba(130, 79, 123, 0.1);
+  box-shadow: 0 12px 32px rgba(92, 80, 89, 0.08);
   backdrop-filter: blur(20px);
 }
 
@@ -167,7 +177,7 @@ select {
 .site-nav a.active,
 .site-nav a:hover {
   color: var(--text);
-  background: rgba(255, 79, 139, 0.12);
+  background: color-mix(in srgb, var(--interactive) 16%, white);
   transform: translateY(-1px);
 }
 
@@ -188,7 +198,7 @@ select {
 .chip,
 .unit-jump-chip {
   border: 1px solid rgba(45, 26, 57, 0.1);
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--surface-strong);
   color: var(--text);
   padding: 8px 14px;
   border-radius: var(--radius-small);
@@ -208,7 +218,7 @@ select {
 .chip.is-active {
   color: white;
   border-color: transparent;
-  background: linear-gradient(120deg, #ff4f8b, #7f5cff);
+  background: linear-gradient(120deg, var(--interactive), var(--interactive-strong));
 }
 
 .chip-direction {
@@ -307,9 +317,9 @@ select {
   padding: 14px;
   border-radius: 22px;
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.7)),
-    linear-gradient(120deg, rgba(255, 255, 255, 0), color-mix(in srgb, var(--accent) 14%, white));
-  border: 1px solid rgba(48, 24, 67, 0.06);
+    linear-gradient(90deg, rgba(255, 255, 255, 0.9), rgba(249, 245, 242, 0.78)),
+    linear-gradient(120deg, rgba(255, 255, 255, 0), color-mix(in srgb, var(--accent) 9%, white));
+  border: 1px solid rgba(64, 52, 65, 0.06);
   animation: rise-in 420ms ease both;
 }
 
@@ -340,7 +350,7 @@ select {
   width: 100%;
   height: 12px;
   border-radius: 999px;
-  background: rgba(40, 20, 55, 0.08);
+  background: var(--track);
   overflow: hidden;
 }
 
@@ -349,8 +359,8 @@ select {
   position: relative;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 60%, white), var(--accent));
-  box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 34%, transparent);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 42%, white), var(--accent));
+  box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 24%, transparent);
 }
 
 .ranking-value {
@@ -374,8 +384,8 @@ select {
   border-radius: 24px;
   overflow: hidden;
   background:
-    radial-gradient(circle at top, rgba(255, 255, 255, 0.72), transparent 40%),
-    linear-gradient(180deg, color-mix(in srgb, var(--accent) 18%, white), rgba(255, 255, 255, 0.35));
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.68), transparent 40%),
+    linear-gradient(180deg, color-mix(in srgb, var(--accent) 12%, white), rgba(255, 255, 255, 0.32));
   isolation: isolate;
 }
 
@@ -412,7 +422,7 @@ select {
   position: absolute;
   inset: auto 12px -10px;
   height: 24px;
-  background: color-mix(in srgb, var(--accent) 40%, transparent);
+  background: color-mix(in srgb, var(--accent) 28%, transparent);
   filter: blur(18px);
   z-index: 1;
 }
@@ -425,7 +435,7 @@ select {
 }
 
 .unit-jump-chip {
-  background: color-mix(in srgb, var(--accent) 12%, rgba(255, 255, 255, 0.92));
+  background: color-mix(in srgb, var(--accent) 8%, rgba(255, 255, 255, 0.92));
 }
 
 .unit-section-list {
@@ -463,8 +473,8 @@ select {
 .compare-vs {
   padding: 10px 14px;
   border-radius: var(--radius-small);
-  background: color-mix(in srgb, var(--accent) 12%, white);
-  border: 1px solid rgba(31, 18, 41, 0.08);
+  background: color-mix(in srgb, var(--accent) 8%, white);
+  border: 1px solid rgba(64, 52, 65, 0.08);
 }
 
 .unit-ranking-list {
@@ -494,7 +504,7 @@ select {
   padding: 0 14px;
   border-radius: 18px;
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--surface-strong);
 }
 
 .compare-vs {
@@ -518,7 +528,7 @@ select {
   padding: 18px;
   border-radius: 24px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.9), color-mix(in srgb, var(--accent) 10%, white));
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), color-mix(in srgb, var(--accent) 7%, white));
 }
 
 .compare-scoreboard {
@@ -535,8 +545,8 @@ select {
   align-items: center;
   padding: 16px;
   border-radius: 22px;
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(49, 22, 73, 0.06);
+  background: rgba(255, 253, 251, 0.74);
+  border: 1px solid rgba(64, 52, 65, 0.06);
   transition:
     transform 180ms ease,
     border-color 180ms ease,
@@ -545,26 +555,26 @@ select {
 
 .compare-row-left,
 .compare-row-right {
-  border-color: color-mix(in srgb, var(--winner-accent) 24%, rgba(49, 22, 73, 0.06));
-  box-shadow: 0 14px 28px color-mix(in srgb, var(--winner-accent) 12%, transparent);
+  border-color: color-mix(in srgb, var(--winner-accent) 18%, rgba(64, 52, 65, 0.06));
+  box-shadow: 0 14px 28px color-mix(in srgb, var(--winner-accent) 8%, transparent);
 }
 
 .compare-row-left {
   background:
-    linear-gradient(90deg, color-mix(in srgb, var(--winner-accent) 12%, white), rgba(255, 255, 255, 0.72) 38%),
-    rgba(255, 255, 255, 0.72);
+    linear-gradient(90deg, color-mix(in srgb, var(--winner-accent) 8%, white), rgba(255, 253, 251, 0.74) 38%),
+    rgba(255, 253, 251, 0.74);
 }
 
 .compare-row-right {
   background:
-    linear-gradient(270deg, color-mix(in srgb, var(--winner-accent) 12%, white), rgba(255, 255, 255, 0.72) 38%),
-    rgba(255, 255, 255, 0.72);
+    linear-gradient(270deg, color-mix(in srgb, var(--winner-accent) 8%, white), rgba(255, 253, 251, 0.74) 38%),
+    rgba(255, 253, 251, 0.74);
 }
 
 .compare-row.is-focused {
   transform: translateY(-2px);
-  border-color: rgba(255, 79, 139, 0.3);
-  box-shadow: 0 12px 30px rgba(255, 79, 139, 0.14);
+  border-color: color-mix(in srgb, var(--interactive) 30%, transparent);
+  box-shadow: 0 12px 30px color-mix(in srgb, var(--interactive) 14%, transparent);
 }
 
 .compare-side {
@@ -603,8 +613,8 @@ select {
 
 .compare-side.is-winner strong {
   color: white;
-  background: linear-gradient(120deg, color-mix(in srgb, var(--accent) 70%, white), var(--accent));
-  box-shadow: 0 12px 24px color-mix(in srgb, var(--accent) 28%, transparent);
+  background: linear-gradient(120deg, color-mix(in srgb, var(--accent) 52%, white), var(--accent));
+  box-shadow: 0 12px 24px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
 .compare-side.is-winner .compare-bar-fill::after {
@@ -641,7 +651,7 @@ select {
   position: relative;
   height: 14px;
   border-radius: 999px;
-  background: rgba(40, 20, 55, 0.08);
+  background: var(--track);
   overflow: hidden;
 }
 
@@ -651,7 +661,7 @@ select {
   bottom: 2px;
   left: 50%;
   width: 1px;
-  background: rgba(48, 24, 67, 0.14);
+  background: var(--track-strong);
   transform: translateX(-50%);
 }
 
@@ -665,20 +675,20 @@ select {
 
 .compare-lead-meter.is-left .compare-lead-fill {
   right: 50%;
-  background: linear-gradient(270deg, color-mix(in srgb, var(--accent) 60%, white), var(--accent));
-  box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 26%, transparent);
+  background: linear-gradient(270deg, color-mix(in srgb, var(--accent) 42%, white), var(--accent));
+  box-shadow: 0 0 16px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
 .compare-lead-meter.is-right .compare-lead-fill {
   left: 50%;
-  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 60%, white), var(--accent));
-  box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 26%, transparent);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 42%, white), var(--accent));
+  box-shadow: 0 0 16px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
 .compare-lead-draw {
   left: calc(50% - 10px);
   right: calc(50% - 10px);
-  background: rgba(48, 24, 67, 0.18);
+  background: rgba(64, 52, 65, 0.18);
 }
 
 @keyframes rise-in {
