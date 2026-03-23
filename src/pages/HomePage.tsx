@@ -25,7 +25,7 @@ export function HomePage() {
   const spread = max - min
 
   return (
-    <main className="page page-home">
+    <main className="page page-home" id="main-content" tabIndex={-1}>
       <div className="page-controls">
         <MetricToggle />
       </div>
@@ -78,7 +78,10 @@ export function HomePage() {
           </div>
         </div>
 
-        <div className="hero-showcase" aria-label="当前前排">
+        <section className="hero-showcase" aria-labelledby="spotlight-heading">
+          <h2 className="sr-only" id="spotlight-heading">
+            当前前排
+          </h2>
           {topThree.map((idol, index) => (
             <article
               key={idol.id}
@@ -86,7 +89,7 @@ export function HomePage() {
               style={{ '--accent': idol.accent } as CSSProperties}
             >
               <div className="spotlight-rank">{formatRank(index + 1)}</div>
-              <IdolVisual idol={idol} compact />
+              <IdolVisual idol={idol} compact priority />
               <div className="spotlight-copy">
                 <p className="spotlight-meta">{getUnitName(idol.unit)}</p>
                 <h2>{idol.name}</h2>
@@ -98,7 +101,7 @@ export function HomePage() {
               </div>
             </article>
           ))}
-        </div>
+        </section>
       </section>
 
       <section className="ranking-shell">

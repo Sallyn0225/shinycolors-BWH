@@ -42,7 +42,7 @@ export function RankingRow({
 
       {showUnit ? <div className="ranking-unit">{getUnitName(idol.unit)}</div> : null}
 
-      <div className="ranking-bar-wrap" aria-label={`${idol.name} 数值 ${value}`}>
+      <div className="ranking-bar-wrap" aria-hidden="true">
         <div className="ranking-bar-track">
           <div className="ranking-bar-fill" style={{ width: `${width}%` }} />
         </div>

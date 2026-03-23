@@ -12,14 +12,13 @@ export function MetricToggle({ showDirection = true }: MetricToggleProps) {
   const { metric, direction, setMetric, toggleDirection } = useRankingPreferences()
 
   return (
-    <div className="control-strip" aria-label="排序控制">
-      <div className="chip-group" role="tablist" aria-label="排序维度">
+    <div className="control-strip" role="group" aria-label="排序控制">
+      <div className="chip-group" role="group" aria-label="排序维度">
         {metrics.map((item) => (
           <button
             key={item}
             type="button"
-            role="tab"
-            aria-selected={metric === item}
+            aria-pressed={metric === item}
             className={`chip ${metric === item ? 'is-active' : ''}`}
             onClick={() => setMetric(item)}
           >

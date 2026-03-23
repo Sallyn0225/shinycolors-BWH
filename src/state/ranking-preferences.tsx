@@ -16,48 +16,70 @@ interface RankingPreferences {
 }
 
 const STORAGE_KEY = 'shinycolors-bwh-preferences'
+const DEFAULT_PREFERENCES = {
+  metric: 'bust' as MetricKey,
+  direction: 'desc' as SortDirection,
+}
 const RankingPreferencesContext = createContext<RankingPreferences | null>(null)
 const metricKeys: MetricKey[] = ['bust', 'waist', 'hips']
 const sortDirections: SortDirection[] = ['asc', 'desc']
 
 function readStoredPreferences() {
   if (typeof window === 'undefined') {
-    return { metric: 'bust' as MetricKey, direction: 'desc' as SortDirection }
-  }
-
-  const raw = window.localStorage.getItem(STORAGE_KEY)
-  if (!raw) {
-    return { metric: 'bust' as MetricKey, direction: 'desc' as SortDirection }
+    return DEFAULT_PREFERENCES
   }
 
   try {
+    const raw = window.localStorage.getItem(STORAGE_KEY)
+    if (!raw) {
+      return DEFAULT_PREFERENCES
+    }
+
     const parsed = JSON.parse(raw) as Partial<{ metric: MetricKey; direction: SortDirection }>
-    const metric = metricKeys.includes(parsed.metric as MetricKey) ? parsed.metric! : 'bust'
+    const metric = metricKeys.includes(parsed.metric as MetricKey)
+      ? parsed.metric!
+      : DEFAULT_PREFERENCES.metric
     const direction = sortDirections.includes(parsed.direction as SortDirection)
       ? parsed.direction!
-      : 'desc'
+      : DEFAULT_PREFERENCES.direction
 
     return { metric, direction }
   } catch {
-    window.localStorage.removeItem(STORAGE_KEY)
-    return { metric: 'bust' as MetricKey, direction: 'desc' as SortDirection }
+    try {
+      window.localStorage.removeItem(STORAGE_KEY)
+    } catch {
+      return DEFAULT_PREFERENCES
+    }
+
+    return DEFAULT_PREFERENCES
   }
 }
 
 export function RankingPreferencesProvider({ children }: PropsWithChildren) {
-  const [metric, setMetric] = useState<MetricKey>(() => readStoredPreferences().metric)
-  const [direction, setDirection] = useState<SortDirection>(() => readStoredPreferences().direction)
+  const [{ metric, direction }, setPreferences] = useState(readStoredPreferences)
 
   useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ metric, direction }))
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ metric, direction }))
+    } catch {
+      return
+    }
   }, [direction, metric])
 
   const value = useMemo<RankingPreferences>(
     () => ({
       metric,
       direction,
-      setMetric,
-      toggleDirection: () => setDirection((current) => (current === 'desc' ? 'asc' : 'desc')),
+      setMetric: (nextMetric) =>
+        setPreferences((current) => ({
+          ...current,
+          metric: nextMetric,
+        })),
+      toggleDirection: () =>
+        setPreferences((current) => ({
+          ...current,
+          direction: current.direction === 'desc' ? 'asc' : 'desc',
+        })),
     }),
     [direction, metric],
   )

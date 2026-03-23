@@ -10,7 +10,7 @@ export function UnitsPage() {
   const { metric, direction } = useRankingPreferences()
 
   return (
-    <main className="page page-units">
+    <main className="page page-units" id="main-content" tabIndex={-1}>
       <div className="page-controls">
         <MetricToggle />
       </div>

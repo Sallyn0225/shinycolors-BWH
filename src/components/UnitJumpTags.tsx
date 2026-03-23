@@ -3,7 +3,7 @@ import { unitDefinitions } from '../data/idols'
 
 export function UnitJumpTags() {
   return (
-    <div className="unit-jump-tags" aria-label="组合跳转">
+    <nav className="unit-jump-tags" aria-label="组合跳转">
       {unitDefinitions.map((unit) => (
         <a
           key={unit.id}
@@ -14,6 +14,6 @@ export function UnitJumpTags() {
           {unit.shortName}
         </a>
       ))}
-    </div>
+    </nav>
   )
 }

@@ -5,6 +5,7 @@ import type { IdolRecord } from '../types'
 interface IdolVisualProps {
   idol: IdolRecord
   compact?: boolean
+  priority?: boolean
 }
 
 // Derived from each asset's alpha bounds so the visible figure lands at a more consistent height.
@@ -39,7 +40,7 @@ const idolVisualScales: Record<string, number> = {
   'yuika-mitsumine': 1.19,
 }
 
-export function IdolVisual({ idol, compact = false }: IdolVisualProps) {
+export function IdolVisual({ idol, compact = false, priority = false }: IdolVisualProps) {
   const [broken, setBroken] = useState(false)
   const imageUrl = `/assets/idols/${idol.id}.webp`
   const altImageUrl = `/assets/idols/${idol.id}.png`
@@ -65,7 +66,14 @@ export function IdolVisual({ idol, compact = false }: IdolVisualProps) {
         <div className="idol-visual-media">
           <picture>
             <source srcSet={imageUrl} type="image/webp" />
-            <img src={altImageUrl} alt={idol.name} loading="lazy" onError={() => setBroken(true)} />
+            <img
+              src={altImageUrl}
+              alt={idol.name}
+              loading={priority ? 'eager' : 'lazy'}
+              fetchPriority={priority ? 'high' : 'auto'}
+              decoding="async"
+              onError={() => setBroken(true)}
+            />
           </picture>
         </div>
       ) : (

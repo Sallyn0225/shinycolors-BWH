@@ -17,7 +17,7 @@ export function ComparePage() {
   const comparisons = useMemo(() => compareMetrics(left, right), [left, right])
 
   return (
-    <main className="page page-compare">
+    <main className="page page-compare" id="main-content" tabIndex={-1}>
       <div className="page-controls">
         <MetricToggle showDirection={false} />
       </div>
@@ -63,7 +63,7 @@ export function ComparePage() {
           className="compare-idol-panel"
           style={{ '--accent': left.accent } as CSSProperties}
         >
-          <IdolVisual idol={left} />
+          <IdolVisual idol={left} priority />
           <div>
             <h2>{left.name}</h2>
             <p>{left.japaneseName}</p>
@@ -85,7 +85,7 @@ export function ComparePage() {
                 ? left.accent
                 : item.winner === 'right'
                   ? right.accent
-                  : '#b7aabf'
+                  : 'var(--accent-neutral)'
             const winnerName = item.winner === 'left' ? left.japaneseName : right.japaneseName
             const leftState =
               item.winner === 'draw' ? 'is-draw' : item.winner === 'left' ? 'is-winner' : 'is-loser'
@@ -107,7 +107,7 @@ export function ComparePage() {
                   style={{ '--accent': left.accent } as CSSProperties}
                 >
                   <strong>{item.leftValue}</strong>
-                  <div className="compare-bar-track">
+                  <div className="compare-bar-track" aria-hidden="true">
                     <div
                       className="compare-bar-fill"
                       style={{ width: `${leftWidth}%`, '--accent': left.accent } as CSSProperties}
@@ -141,7 +141,7 @@ export function ComparePage() {
                   className={`compare-side compare-side-right ${rightState}`}
                   style={{ '--accent': right.accent } as CSSProperties}
                 >
-                  <div className="compare-bar-track">
+                  <div className="compare-bar-track" aria-hidden="true">
                     <div
                       className="compare-bar-fill"
                       style={{ width: `${rightWidth}%`, '--accent': right.accent } as CSSProperties}
@@ -158,7 +158,7 @@ export function ComparePage() {
           className="compare-idol-panel"
           style={{ '--accent': right.accent } as CSSProperties}
         >
-          <IdolVisual idol={right} />
+          <IdolVisual idol={right} priority />
           <div>
             <h2>{right.name}</h2>
             <p>{right.japaneseName}</p>
