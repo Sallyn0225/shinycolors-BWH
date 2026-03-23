@@ -76,6 +76,7 @@ export function ComparePage() {
                 : item.winner === 'right'
                   ? right.accent
                   : '#b7aabf'
+            const winnerName = item.winner === 'left' ? left.japaneseName : right.japaneseName
             const leftState =
               item.winner === 'draw' ? 'is-draw' : item.winner === 'left' ? 'is-winner' : 'is-loser'
             const rightState =
@@ -122,9 +123,7 @@ export function ComparePage() {
                     </div>
                   </div>
                   <small>
-                    {item.winner === 'draw'
-                      ? '同值'
-                      : `${item.winner === 'left' ? '左侧' : '右侧'}领先 ${item.difference} cm`}
+                    {item.winner === 'draw' ? '同值' : `${winnerName}领先 ${item.difference} cm`}
                   </small>
                 </div>
 
