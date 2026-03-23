@@ -1,7 +1,6 @@
 import type { CSSProperties } from 'react'
 import { idols, unitDefinitions } from '../data/idols'
 import { getMetricRange, getUnitAverage, metricLabels, sortIdols } from '../lib/ranking'
-import { MetricToggle } from '../components/MetricToggle'
 import { useRankingPreferences } from '../state/ranking-preferences'
 import { RankingRow } from '../components/RankingRow'
 import { UnitJumpTags } from '../components/UnitJumpTags'
@@ -11,10 +10,6 @@ export function UnitsPage() {
 
   return (
     <main className="page">
-      <section className="page-mobile-controls" aria-label="移动端排序控制">
-        <MetricToggle />
-      </section>
-
       <UnitJumpTags />
 
       <div className="unit-section-list">

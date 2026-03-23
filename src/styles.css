@@ -20,7 +20,6 @@
   --container: min(1180px, calc(100vw - 40px));
   --sticky-gap: 14px;
   --mobile-primary-top: 8px;
-  --mobile-secondary-top: 104px;
   font-family: 'Trebuchet MS', 'Segoe UI', 'Microsoft YaHei UI', sans-serif;
   color: var(--text);
   background:
@@ -788,13 +787,14 @@ select {
 
   .site-header {
     top: var(--mobile-primary-top);
-    gap: 10px;
+    gap: 8px 10px;
     padding: 12px 14px;
-    margin-bottom: 18px;
+    margin-bottom: 14px;
   }
 
   .site-header-controls {
-    display: none;
+    grid-column: 1 / -1;
+    width: 100%;
   }
 
   .brand-block {
@@ -827,42 +827,29 @@ select {
     padding: 9px 14px;
   }
 
-  .page-mobile-controls {
-    position: sticky;
-    top: var(--mobile-secondary-top);
-    z-index: 9;
-    display: block;
-    padding: 10px 12px;
-    background: rgba(255, 255, 255, 0.76);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    box-shadow: var(--shadow);
-    backdrop-filter: blur(18px);
-  }
-
-  .page-mobile-controls .control-strip,
-  .page-mobile-controls .chip-group {
+  .site-header-controls .control-strip,
+  .site-header-controls .chip-group {
     flex-wrap: nowrap;
   }
 
-  .page-mobile-controls .control-strip {
+  .site-header-controls .control-strip {
     justify-content: flex-start;
     gap: 10px;
     overflow-x: auto;
     scrollbar-width: none;
   }
 
-  .page-mobile-controls .control-strip::-webkit-scrollbar {
+  .site-header-controls .control-strip::-webkit-scrollbar {
     display: none;
   }
 
-  .page-mobile-controls .chip,
-  .page-mobile-controls .unit-jump-chip {
+  .site-header-controls .chip,
+  .site-header-controls .unit-jump-chip {
     flex: 0 0 auto;
     padding: 9px 14px;
   }
 
-  .page-mobile-controls .chip-direction {
+  .site-header-controls .chip-direction {
     min-width: 96px;
   }
 
@@ -950,6 +937,6 @@ select {
   }
 
   .unit-section {
-    scroll-margin-top: 188px;
+    scroll-margin-top: 144px;
   }
 }
