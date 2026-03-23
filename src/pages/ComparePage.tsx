@@ -1,9 +1,10 @@
 import type { CSSProperties } from 'react'
 import { useMemo, useState } from 'react'
+import { IdolVisual } from '../components/IdolVisual'
+import { MetricToggle } from '../components/MetricToggle'
 import { idols } from '../data/idols'
 import { compareMetrics, metricLabels } from '../lib/ranking'
 import { useRankingPreferences } from '../state/ranking-preferences'
-import { IdolVisual } from '../components/IdolVisual'
 
 export function ComparePage() {
   const { metric } = useRankingPreferences()
@@ -16,7 +17,21 @@ export function ComparePage() {
   const comparisons = useMemo(() => compareMetrics(left, right), [left, right])
 
   return (
-    <main className="page">
+    <main className="page page-compare">
+      <div className="page-controls">
+        <MetricToggle showDirection={false} />
+      </div>
+
+      <section className="hero-panel compare-page-intro">
+        <div className="hero-copy">
+          <p className="eyebrow">Compare Stage</p>
+          <h1>双人对比</h1>
+          <p className="hero-intro">
+            先选两位偶像，再用当前聚焦的 {metricLabels[metric]} 作为视觉重心去看三项数值的领先关系。
+          </p>
+        </div>
+      </section>
+
       <section className="compare-pickers">
         <label className="picker">
           <span>左侧偶像</span>

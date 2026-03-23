@@ -9,14 +9,27 @@ interface RankingRowProps {
   metric: MetricKey
   min: number
   max: number
+  showUnit?: boolean
+  compact?: boolean
 }
 
-export function RankingRow({ idol, rank, metric, min, max }: RankingRowProps) {
+export function RankingRow({
+  idol,
+  rank,
+  metric,
+  min,
+  max,
+  showUnit = true,
+  compact = false,
+}: RankingRowProps) {
   const value = getMetricValue(idol, metric)
   const width = getBarPercentage(value, min, max)
 
   return (
-    <article className="ranking-row" style={{ '--accent': idol.accent } as CSSProperties}>
+    <article
+      className={`ranking-row ${compact ? 'is-condensed' : ''} ${showUnit ? '' : 'has-no-unit'}`.trim()}
+      style={{ '--accent': idol.accent } as CSSProperties}
+    >
       <div className="ranking-index">{formatRank(rank)}</div>
 
       <div className="ranking-identity">
@@ -27,7 +40,7 @@ export function RankingRow({ idol, rank, metric, min, max }: RankingRowProps) {
         </div>
       </div>
 
-      <div className="ranking-unit">{getUnitName(idol.unit)}</div>
+      {showUnit ? <div className="ranking-unit">{getUnitName(idol.unit)}</div> : null}
 
       <div className="ranking-bar-wrap" aria-label={`${idol.name} 数值 ${value}`}>
         <div className="ranking-bar-track">

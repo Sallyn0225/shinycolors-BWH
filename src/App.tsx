@@ -1,13 +1,9 @@
-import { NavLink, Route, Routes, useLocation } from 'react-router-dom'
-import { MetricToggle } from './components/MetricToggle'
+import { NavLink, Route, Routes } from 'react-router-dom'
 import { HomePage } from './pages/HomePage'
 import { UnitsPage } from './pages/UnitsPage'
 import { ComparePage } from './pages/ComparePage'
 
 export default function App() {
-  const location = useLocation()
-  const showDirection = location.pathname !== '/compare'
-
   return (
     <div className="app-shell">
       <div className="app-backdrop" aria-hidden="true">
@@ -29,10 +25,6 @@ export default function App() {
           <NavLink to="/units">小组页</NavLink>
           <NavLink to="/compare">双人对比</NavLink>
         </nav>
-
-        <div className="site-header-controls">
-          <MetricToggle showDirection={showDirection} />
-        </div>
       </header>
 
       <Routes>
