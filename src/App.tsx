@@ -1,8 +1,8 @@
-import { NavLink, Route, Routes } from "react-router-dom";
-import { MetricToggle } from "./components/MetricToggle";
-import { HomePage } from "./pages/HomePage";
-import { UnitsPage } from "./pages/UnitsPage";
-import { ComparePage } from "./pages/ComparePage";
+import { NavLink, Route, Routes } from 'react-router-dom'
+import { MetricToggle } from './components/MetricToggle'
+import { HomePage } from './pages/HomePage'
+import { UnitsPage } from './pages/UnitsPage'
+import { ComparePage } from './pages/ComparePage'
 
 export default function App() {
   return (
@@ -38,5 +38,5 @@ export default function App() {
         <Route path="/compare" element={<ComparePage />} />
       </Routes>
     </div>
-  );
+  )
 }

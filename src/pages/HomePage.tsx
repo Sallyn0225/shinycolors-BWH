@@ -1,13 +1,13 @@
-import { idols } from "../data/idols";
-import { MetricToggle } from "../components/MetricToggle";
-import { metricLabels, getMetricRange, sortIdols } from "../lib/ranking";
-import { useRankingPreferences } from "../state/ranking-preferences";
-import { RankingRow } from "../components/RankingRow";
+import { idols } from '../data/idols'
+import { MetricToggle } from '../components/MetricToggle'
+import { metricLabels, getMetricRange, sortIdols } from '../lib/ranking'
+import { useRankingPreferences } from '../state/ranking-preferences'
+import { RankingRow } from '../components/RankingRow'
 
 export function HomePage() {
-  const { metric, direction } = useRankingPreferences();
-  const sorted = sortIdols(idols, metric, direction);
-  const { min, max } = getMetricRange(idols, metric);
+  const { metric, direction } = useRankingPreferences()
+  const sorted = sortIdols(idols, metric, direction)
+  const { min, max } = getMetricRange(idols, metric)
 
   return (
     <main className="page page-home">
@@ -39,5 +39,5 @@ export function HomePage() {
         ))}
       </section>
     </main>
-  );
+  )
 }

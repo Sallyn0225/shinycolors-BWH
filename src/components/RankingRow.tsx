@@ -1,22 +1,22 @@
-import type { CSSProperties } from "react";
-import type { IdolRecord, MetricKey } from "../types";
-import { formatRank, getBarPercentage, getMetricValue, getUnitName } from "../lib/ranking";
-import { IdolVisual } from "./IdolVisual";
+import type { CSSProperties } from 'react'
+import type { IdolRecord, MetricKey } from '../types'
+import { formatRank, getBarPercentage, getMetricValue, getUnitName } from '../lib/ranking'
+import { IdolVisual } from './IdolVisual'
 
 interface RankingRowProps {
-  idol: IdolRecord;
-  rank: number;
-  metric: MetricKey;
-  min: number;
-  max: number;
+  idol: IdolRecord
+  rank: number
+  metric: MetricKey
+  min: number
+  max: number
 }
 
 export function RankingRow({ idol, rank, metric, min, max }: RankingRowProps) {
-  const value = getMetricValue(idol, metric);
-  const width = getBarPercentage(value, min, max);
+  const value = getMetricValue(idol, metric)
+  const width = getBarPercentage(value, min, max)
 
   return (
-    <article className="ranking-row" style={{ "--accent": idol.accent } as CSSProperties}>
+    <article className="ranking-row" style={{ '--accent': idol.accent } as CSSProperties}>
       <div className="ranking-index">{formatRank(rank)}</div>
 
       <div className="ranking-identity">
@@ -40,5 +40,5 @@ export function RankingRow({ idol, rank, metric, min, max }: RankingRowProps) {
         <small>cm</small>
       </div>
     </article>
-  );
+  )
 }

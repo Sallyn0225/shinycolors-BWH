@@ -1,5 +1,5 @@
-import type { CSSProperties } from "react";
-import { unitDefinitions } from "../data/idols";
+import type { CSSProperties } from 'react'
+import { unitDefinitions } from '../data/idols'
 
 export function UnitJumpTags() {
   return (
@@ -9,11 +9,11 @@ export function UnitJumpTags() {
           key={unit.id}
           href={`#${unit.id}`}
           className="unit-jump-chip"
-          style={{ "--accent": unit.accent } as CSSProperties}
+          style={{ '--accent': unit.accent } as CSSProperties}
         >
           {unit.shortName}
         </a>
       ))}
     </div>
-  );
+  )
 }

@@ -1,18 +1,13 @@
-import type { CSSProperties } from "react";
-import { idols, unitDefinitions } from "../data/idols";
-import {
-  getMetricRange,
-  getUnitAverage,
-  metricLabels,
-  sortIdols,
-} from "../lib/ranking";
-import { MetricToggle } from "../components/MetricToggle";
-import { useRankingPreferences } from "../state/ranking-preferences";
-import { RankingRow } from "../components/RankingRow";
-import { UnitJumpTags } from "../components/UnitJumpTags";
+import type { CSSProperties } from 'react'
+import { idols, unitDefinitions } from '../data/idols'
+import { getMetricRange, getUnitAverage, metricLabels, sortIdols } from '../lib/ranking'
+import { MetricToggle } from '../components/MetricToggle'
+import { useRankingPreferences } from '../state/ranking-preferences'
+import { RankingRow } from '../components/RankingRow'
+import { UnitJumpTags } from '../components/UnitJumpTags'
 
 export function UnitsPage() {
-  const { metric, direction } = useRankingPreferences();
+  const { metric, direction } = useRankingPreferences()
 
   return (
     <main className="page">
@@ -24,16 +19,16 @@ export function UnitsPage() {
 
       <div className="unit-section-list">
         {unitDefinitions.map((unit) => {
-          const members = idols.filter((idol) => idol.unit === unit.id);
-          const sorted = sortIdols(members, metric, direction);
-          const { min, max } = getMetricRange(members, metric);
+          const members = idols.filter((idol) => idol.unit === unit.id)
+          const sorted = sortIdols(members, metric, direction)
+          const { min, max } = getMetricRange(members, metric)
 
           return (
             <section
               key={unit.id}
               id={unit.id}
               className="unit-section"
-              style={{ "--accent": unit.accent } as CSSProperties}
+              style={{ '--accent': unit.accent } as CSSProperties}
             >
               <header className="unit-header">
                 <div>
@@ -62,9 +57,9 @@ export function UnitsPage() {
                 ))}
               </div>
             </section>
-          );
+          )
         })}
       </div>
     </main>
-  );
+  )
 }
