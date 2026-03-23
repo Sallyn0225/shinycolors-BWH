@@ -55,11 +55,11 @@ npm run preview
 
 ## Feature Snapshot
 
-| 页面 | 路径 | 说明 |
-| --- | --- | --- |
-| 首页排行 | `/` | 展示全员排行，支持维度切换和升降序 |
-| 小组页 | `/units` | 按组合展示排行、人数和当前维度平均值 |
-| 双人对比 | `/compare` | 左右选择两位偶像，直接比较三项数据 |
+| 页面     | 路径       | 说明                                 |
+| -------- | ---------- | ------------------------------------ |
+| 首页排行 | `/`        | 展示全员排行，支持维度切换和升降序   |
+| 小组页   | `/units`   | 按组合展示排行、人数和当前维度平均值 |
+| 双人对比 | `/compare` | 左右选择两位偶像，直接比较三项数据   |
 
 ## Why This Repo Is Easy To Deploy
 
@@ -91,7 +91,7 @@ npm run preview
 
 ### Netlify
 
-仓库内已提供 [netlify.toml](./netlify.toml) 和 [public/_redirects](./public/_redirects)。
+仓库内已提供 [netlify.toml](./netlify.toml) 和 [public/\_redirects](./public/_redirects)。
 
 - Build command: `npm run build`
 - Publish directory: `dist`
@@ -100,7 +100,7 @@ npm run preview
 
 ### Cloudflare Pages
 
-Cloudflare Pages 直接复用 [public/_redirects](./public/_redirects) 的回退规则。
+Cloudflare Pages 直接复用 [public/\_redirects](./public/_redirects) 的回退规则。
 
 - Framework preset: `Vite`
 - Build command: `npm run build`
