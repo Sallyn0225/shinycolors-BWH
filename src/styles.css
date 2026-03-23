@@ -21,11 +21,19 @@
   --sticky-gap: 14px;
   --mobile-primary-top: 8px;
   --mobile-secondary-top: 104px;
-  font-family: "Trebuchet MS", "Segoe UI", "Microsoft YaHei UI", sans-serif;
+  font-family: 'Trebuchet MS', 'Segoe UI', 'Microsoft YaHei UI', sans-serif;
   color: var(--text);
   background:
-    radial-gradient(circle at top left, color-mix(in srgb, var(--theme-rose) 22%, transparent), transparent 34%),
-    radial-gradient(circle at top right, color-mix(in srgb, var(--theme-sage) 20%, transparent), transparent 28%),
+    radial-gradient(
+      circle at top left,
+      color-mix(in srgb, var(--theme-rose) 22%, transparent),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at top right,
+      color-mix(in srgb, var(--theme-sage) 20%, transparent),
+      transparent 28%
+    ),
     linear-gradient(180deg, #fbf8f5 0%, #f5f0ec 42%, #edf1f4 100%);
 }
 
@@ -45,7 +53,7 @@ body {
 }
 
 body::before {
-  content: "";
+  content: '';
   position: fixed;
   inset: 0;
   background:
@@ -150,7 +158,7 @@ select {
 }
 
 .brand-mark {
-  font-family: "Palatino Linotype", "Times New Roman", serif;
+  font-family: 'Palatino Linotype', 'Times New Roman', serif;
   font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -271,7 +279,7 @@ select {
 .section-heading h2,
 .unit-header h2 {
   margin: 0;
-  font-family: "Palatino Linotype", "Book Antiqua", serif;
+  font-family: 'Palatino Linotype', 'Book Antiqua', serif;
   line-height: 0.95;
   letter-spacing: -0.03em;
 }
@@ -324,7 +332,7 @@ select {
 }
 
 .ranking-index {
-  font-family: "Palatino Linotype", "Times New Roman", serif;
+  font-family: 'Palatino Linotype', 'Times New Roman', serif;
   font-size: 1.5rem;
   text-align: center;
 }
@@ -378,9 +386,11 @@ select {
 }
 
 .idol-visual {
+  --idol-scale: 1.18;
+  --idol-offset-y: -3.5%;
   position: relative;
-  width: 140px;
-  height: 180px;
+  width: clamp(156px, 24vw, 188px);
+  height: clamp(204px, 29vw, 244px);
   border-radius: 24px;
   overflow: hidden;
   background:
@@ -390,20 +400,31 @@ select {
 }
 
 .idol-visual.is-compact {
+  --idol-offset-y: -2.5%;
   width: 68px;
   height: 84px;
   border-radius: 18px;
   flex-shrink: 0;
 }
 
+.idol-visual-media {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  transform: translateY(var(--idol-offset-y)) scale(var(--idol-scale));
+  transform-origin: center bottom;
+}
+
 .idol-visual img,
 .idol-visual picture {
   width: 100%;
   height: 100%;
+  display: block;
+}
+
+.idol-visual img {
   object-fit: contain;
   object-position: center bottom;
-  position: relative;
-  z-index: 2;
 }
 
 .idol-placeholder {
@@ -413,7 +434,7 @@ select {
   place-items: center;
   width: 100%;
   height: 100%;
-  font-family: "Palatino Linotype", "Times New Roman", serif;
+  font-family: 'Palatino Linotype', 'Times New Roman', serif;
   font-size: clamp(1.4rem, 4vw, 2.2rem);
   color: rgba(32, 25, 34, 0.74);
 }
@@ -508,7 +529,7 @@ select {
 }
 
 .compare-vs {
-  font-family: "Palatino Linotype", "Times New Roman", serif;
+  font-family: 'Palatino Linotype', 'Times New Roman', serif;
   font-size: 1.25rem;
 }
 
@@ -527,8 +548,11 @@ select {
   justify-content: center;
   padding: 18px;
   border-radius: 24px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.9), color-mix(in srgb, var(--accent) 7%, white));
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.9),
+    color-mix(in srgb, var(--accent) 7%, white)
+  );
 }
 
 .compare-scoreboard {
@@ -561,13 +585,21 @@ select {
 
 .compare-row-left {
   background:
-    linear-gradient(90deg, color-mix(in srgb, var(--winner-accent) 8%, white), rgba(255, 253, 251, 0.74) 38%),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--winner-accent) 8%, white),
+      rgba(255, 253, 251, 0.74) 38%
+    ),
     rgba(255, 253, 251, 0.74);
 }
 
 .compare-row-right {
   background:
-    linear-gradient(270deg, color-mix(in srgb, var(--winner-accent) 8%, white), rgba(255, 253, 251, 0.74) 38%),
+    linear-gradient(
+      270deg,
+      color-mix(in srgb, var(--winner-accent) 8%, white),
+      rgba(255, 253, 251, 0.74) 38%
+    ),
     rgba(255, 253, 251, 0.74);
 }
 
@@ -618,7 +650,7 @@ select {
 }
 
 .compare-side.is-winner .compare-bar-fill::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 50%;
   right: 4px;
