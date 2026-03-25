@@ -92,10 +92,6 @@ export default function App() {
         </div>
 
         <div className="header-utility">
-          <div className="header-edition" aria-label="当前刊次">
-            <span>Issue</span>
-            <strong>03</strong>
-          </div>
           <StaggeredMenu items={[...navigationItems]} />
         </div>
       </header>

@@ -196,6 +196,7 @@ button {
   z-index: 20;
   display: grid;
   grid-template-columns: auto 1fr auto;
+  grid-template-areas: 'brand current utility';
   align-items: center;
   gap: 24px;
   padding: 16px 20px;
@@ -208,6 +209,7 @@ button {
 }
 
 .brand-block {
+  grid-area: brand;
   display: grid;
   gap: 4px;
 }
@@ -221,8 +223,7 @@ button {
 .ranking-unit span,
 .staggered-menu-kicker span,
 .unit-jump-heading span,
-.hero-stat-label,
-.header-edition span {
+.hero-stat-label {
   margin: 0;
   color: var(--ink-faint);
   font-size: 0.72rem;
@@ -238,6 +239,7 @@ button {
 }
 
 .header-current {
+  grid-area: current;
   display: grid;
   justify-items: center;
   gap: 4px;
@@ -257,6 +259,7 @@ button {
 }
 
 .header-utility {
+  grid-area: utility;
   display: inline-flex;
   align-items: center;
   justify-content: flex-end;
@@ -299,18 +302,6 @@ button {
 .site-nav a:hover::after,
 .site-nav a.active::after {
   transform: scaleX(1);
-}
-
-.header-edition {
-  display: grid;
-  justify-items: end;
-  gap: 4px;
-}
-
-.header-edition strong {
-  font-family: var(--font-number);
-  font-size: 1.6rem;
-  line-height: 1;
 }
 
 .staggered-menu {
@@ -449,11 +440,42 @@ button {
   overflow: hidden;
   border-left: 1px solid color-mix(in srgb, var(--line-strong) 88%, white 12%);
   background:
-    linear-gradient(180deg, color-mix(in srgb, var(--bg-panel-strong) 98%, white 2%), var(--bg-soft)),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--bg-panel-strong) 98%, white 2%),
+      var(--bg-soft)
+    ),
     linear-gradient(135deg, color-mix(in srgb, var(--accent) 12%, transparent), transparent 52%);
   box-shadow: -22px 0 64px rgba(15, 23, 42, 0.18);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+}
+
+.staggered-menu-dismiss {
+  position: absolute;
+  top: 26px;
+  right: 28px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--bg-panel-strong) 92%, transparent);
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    transform 180ms ease-out,
+    border-color 180ms ease-out,
+    background-color 180ms ease-out;
+}
+
+.staggered-menu-dismiss:hover {
+  transform: translateY(-1px);
+  border-color: var(--line-strong);
+  background: var(--bg-panel-hover);
 }
 
 .staggered-menu-panelInner {
@@ -642,7 +664,11 @@ button {
 .hero-link.is-primary {
   border-color: transparent;
   color: #fff7f9;
-  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 94%, #ffffff 6%), #151515 150%);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent) 94%, #ffffff 6%),
+    #151515 150%
+  );
 }
 
 .chip-direction {
@@ -785,22 +811,28 @@ button {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 10%, transparent), transparent 48%);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent) 10%, transparent),
+    transparent 48%
+  );
   pointer-events: none;
 }
 
 .home-featured {
   display: grid;
-  grid-template-columns: auto minmax(210px, 0.8fr) minmax(0, 1fr) auto;
+  grid-template-columns: auto minmax(220px, 300px) minmax(0, 1fr) auto;
   align-items: center;
-  gap: 18px;
+  gap: clamp(18px, 2vw, 30px);
   min-height: 400px;
   padding: 26px;
   border-radius: 24px;
 }
 
 .home-featured .idol-visual {
-  width: clamp(220px, 26vw, 300px);
+  justify-self: start;
+  width: 100%;
+  max-width: 300px;
   height: clamp(300px, 38vw, 420px);
 }
 
@@ -1012,7 +1044,11 @@ button {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 10%, transparent), transparent 55%);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--accent) 10%, transparent),
+    transparent 55%
+  );
   opacity: 0.5;
   pointer-events: none;
 }
@@ -1119,8 +1155,11 @@ button {
 
 .ranking-row:hover {
   transform: translateX(4px);
-  background:
-    linear-gradient(90deg, color-mix(in srgb, var(--accent) 8%, transparent), transparent 34%);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--accent) 8%, transparent),
+    transparent 34%
+  );
 }
 
 .ranking-row.is-condensed {
@@ -1427,16 +1466,22 @@ button {
 }
 
 .compare-row.is-focused {
-  background:
-    linear-gradient(90deg, color-mix(in srgb, var(--accent) 7%, transparent), transparent 28%);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--accent) 7%, transparent),
+    transparent 28%
+  );
   box-shadow: inset 3px 0 0 color-mix(in srgb, var(--accent) 82%, white);
   transform: translateX(2px);
 }
 
 .compare-row-left,
 .compare-row-right {
-  background:
-    linear-gradient(90deg, color-mix(in srgb, var(--winner-accent) 10%, transparent), transparent 30%);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--winner-accent) 10%, transparent),
+    transparent 30%
+  );
 }
 
 .compare-side {
@@ -1469,7 +1514,11 @@ button {
 
 .compare-side.is-winner strong {
   color: #fff7f9;
-  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 86%, black 14%), #181818 150%);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent) 86%, black 14%),
+    #181818 150%
+  );
 }
 
 .compare-side.is-loser strong {
@@ -1552,6 +1601,10 @@ button {
 @media (max-width: 1180px) {
   .site-header {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      'brand'
+      'current'
+      'utility';
     align-items: start;
   }
 
@@ -1627,13 +1680,25 @@ button {
 
   .site-header {
     top: 8px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'brand brand'
+      'current utility';
+    align-items: end;
     gap: 12px;
     margin-bottom: 22px;
     padding: 14px 16px;
   }
 
+  .header-current {
+    align-self: end;
+  }
+
   .header-utility {
+    width: auto;
     gap: 10px;
+    justify-content: flex-end;
+    align-self: end;
   }
 
   .site-nav {
@@ -1730,6 +1795,11 @@ button {
     padding: 102px 22px 24px;
   }
 
+  .staggered-menu-dismiss {
+    top: 22px;
+    right: 22px;
+  }
+
   .sm-panel-itemLabel {
     font-size: clamp(1.9rem, 10vw, 3rem);
   }
@@ -1771,16 +1841,14 @@ button {
   }
 
   .header-utility {
-    flex-wrap: wrap;
-    align-items: stretch;
-  }
-
-  .header-edition {
-    justify-items: start;
+    flex-wrap: nowrap;
+    align-items: center;
   }
 
   .staggered-menu-toggle {
-    width: 100%;
+    width: auto;
+    min-height: 44px;
+    padding-inline: 14px;
     justify-content: center;
   }
 

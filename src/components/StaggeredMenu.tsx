@@ -55,7 +55,9 @@ export function StaggeredMenu({
     return {
       panel,
       labels: Array.from(panel?.querySelectorAll<HTMLElement>('.sm-panel-itemLabel') ?? []),
-      descriptions: Array.from(panel?.querySelectorAll<HTMLElement>('.sm-panel-itemDescription') ?? []),
+      descriptions: Array.from(
+        panel?.querySelectorAll<HTMLElement>('.sm-panel-itemDescription') ?? [],
+      ),
       numbers: Array.from(panel?.querySelectorAll<HTMLElement>('.sm-panel-itemNumber') ?? []),
       notes: Array.from(panel?.querySelectorAll<HTMLElement>('.sm-panel-note > *') ?? []),
     }
@@ -419,7 +421,7 @@ export function StaggeredMenu({
     }
   }, [closeMenu, location.pathname, resetToggleVisuals])
 
-  const closeFromLink = useCallback(() => {
+  const dismissMenu = useCallback(() => {
     animateIcon(false)
     animateText(false)
     closeMenu()
@@ -461,12 +463,16 @@ export function StaggeredMenu({
                 type="button"
                 aria-label="关闭页面导航"
                 tabIndex={open ? 0 : -1}
-                onClick={closeFromLink}
+                onClick={dismissMenu}
               />
 
               <div ref={preLayersRef} className="staggered-menu-layers" aria-hidden="true">
                 {colors.slice(0, 3).map((color, index) => (
-                  <div key={`${color}-${index}`} className="sm-prelayer" style={{ background: color }} />
+                  <div
+                    key={`${color}-${index}`}
+                    className="sm-prelayer"
+                    style={{ background: color }}
+                  />
                 ))}
               </div>
 
@@ -477,6 +483,16 @@ export function StaggeredMenu({
                 aria-hidden={!open}
                 aria-label="页面切换菜单"
               >
+                <button
+                  className="staggered-menu-dismiss"
+                  type="button"
+                  aria-label="取消并关闭页面导航"
+                  tabIndex={open ? 0 : -1}
+                  onClick={dismissMenu}
+                >
+                  取消
+                </button>
+
                 <div className="staggered-menu-panelInner">
                   <div className="staggered-menu-kicker">
                     <span>Page Switch</span>
@@ -494,10 +510,12 @@ export function StaggeredMenu({
                             className={({ isActive }) =>
                               `staggered-menu-item ${isActive ? 'is-active' : ''}`
                             }
-                            onClick={closeFromLink}
+                            onClick={dismissMenu}
                             style={{ '--menu-accent': accentColor } as CSSProperties}
                           >
-                            <span className="sm-panel-itemNumber">{String(index + 1).padStart(2, '0')}</span>
+                            <span className="sm-panel-itemNumber">
+                              {String(index + 1).padStart(2, '0')}
+                            </span>
                             <span className="sm-panel-itemBody">
                               <span className="sm-panel-itemLabel">{item.label}</span>
                               <span className="sm-panel-itemDescription">{item.description}</span>
@@ -511,7 +529,11 @@ export function StaggeredMenu({
                   <div className="sm-panel-note">
                     <p>283 PRODUCTION</p>
                     <strong>B/W/H Visual Archive</strong>
-                    <small>{location.pathname === '/' ? 'Current issue overview' : 'Switch between the three reading views'}</small>
+                    <small>
+                      {location.pathname === '/'
+                        ? 'Current issue overview'
+                        : 'Switch between the three reading views'}
+                    </small>
                   </div>
                 </div>
               </aside>
