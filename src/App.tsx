@@ -50,7 +50,9 @@ export default function App() {
       <header className="site-header">
         <div className="brand-block">
           <p className="brand-kicker">283 PRODUCTION</p>
-          <span className="brand-mark">B/W/H VISUALIZER</span>
+          <Link className="brand-mark" to="/">
+            B/W/H VISUAL ARCHIVE
+          </Link>
         </div>
 
         <nav className="site-nav" aria-label="主导航">
@@ -60,6 +62,11 @@ export default function App() {
           <NavLink to="/units">小组页</NavLink>
           <NavLink to="/compare">双人对比</NavLink>
         </nav>
+
+        <div className="header-edition" aria-label="当前刊次">
+          <span>Issue</span>
+          <strong>03</strong>
+        </div>
       </header>
 
       <Suspense

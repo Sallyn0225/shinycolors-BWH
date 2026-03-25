@@ -30,7 +30,10 @@ export function RankingRow({
       className={`ranking-row ${compact ? 'is-condensed' : ''} ${showUnit ? '' : 'has-no-unit'}`.trim()}
       style={{ '--accent': idol.accent } as CSSProperties}
     >
-      <div className="ranking-index">{formatRank(rank)}</div>
+      <div className="ranking-index">
+        <span>Rank</span>
+        <strong>{formatRank(rank)}</strong>
+      </div>
 
       <div className="ranking-identity">
         <IdolVisual idol={idol} compact />
@@ -40,7 +43,12 @@ export function RankingRow({
         </div>
       </div>
 
-      {showUnit ? <div className="ranking-unit">{getUnitName(idol.unit)}</div> : null}
+      {showUnit ? (
+        <div className="ranking-unit">
+          <span>Unit</span>
+          <strong>{getUnitName(idol.unit)}</strong>
+        </div>
+      ) : null}
 
       <div className="ranking-bar-wrap" aria-hidden="true">
         <div className="ranking-bar-track">

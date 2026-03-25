@@ -117,6 +117,7 @@ export function ComparePage() {
 
                 <div className="compare-center">
                   <span>{metricLabels[item.metric]}</span>
+                  {isFocused ? <strong className="compare-focus-tag">Current Focus</strong> : null}
                   <div className={`compare-lead-meter is-${item.winner}`} aria-hidden="true">
                     <div className="compare-lead-track">
                       <div className="compare-lead-axis" />

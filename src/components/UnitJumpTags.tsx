@@ -4,6 +4,11 @@ import { unitDefinitions } from '../data/idols'
 export function UnitJumpTags() {
   return (
     <nav className="unit-jump-tags" aria-label="组合跳转">
+      <div className="unit-jump-heading">
+        <span>Section Index</span>
+        <strong>{unitDefinitions.length} Units</strong>
+      </div>
+
       {unitDefinitions.map((unit) => (
         <a
           key={unit.id}

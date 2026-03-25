@@ -19,10 +19,33 @@ export function HomePage() {
   const sorted = sortIdols(idols, metric, direction)
   const { min, max } = getMetricRange(idols, metric)
   const topThree = sorted.slice(0, 3)
+  const [coverLead, ...coverStack] = topThree
   const rest = sorted.slice(3)
   const leading = sorted[0]
   const trailing = sorted[sorted.length - 1]
   const spread = max - min
+  const summaryItems = [
+    {
+      label: 'Lead',
+      value: leading.japaneseName,
+      detail: `${getUnitName(leading.unit)} · ${leading.measurements[metric]} cm`,
+    },
+    {
+      label: 'Tail',
+      value: trailing.japaneseName,
+      detail: `${getUnitName(trailing.unit)} · ${trailing.measurements[metric]} cm`,
+    },
+    {
+      label: 'Spread',
+      value: `${spread} cm`,
+      detail: `${min} cm → ${max} cm`,
+    },
+    {
+      label: 'Metric',
+      value: metricLabels[metric],
+      detail: directionLabels[direction],
+    },
+  ]
 
   return (
     <main className="page page-home" id="main-content" tabIndex={-1}>
@@ -30,43 +53,17 @@ export function HomePage() {
         <MetricToggle />
       </div>
 
-      <section className="hero-panel">
-        <div className="hero-copy">
-          <p className="eyebrow">283 Production · 28 idols</p>
+      <section className="hero-panel issue-hero">
+        <div className="hero-copy issue-copy">
+          <p className="eyebrow">Current Issue</p>
+          <p className="issue-meta">283 Production · 28 idols · ranking archive</p>
           <h1>{metricLabels[metric]}资料榜</h1>
           <p className="hero-intro">
-            当前按{directionLabels[direction]}
-            浏览。先看首位、跨度和跳转入口，再继续滑下去扫完整顺位。
+            当前按{directionLabels[direction]}浏览。先扫这一项数据的前排与区间，再往下翻完整顺位和组内差异。
           </p>
-
-          <div className="hero-stat-list">
-            <article className="hero-stat">
-              <span className="hero-stat-label">当前首位</span>
-              <strong className="hero-stat-value">{leading.japaneseName}</strong>
-              <small>
-                {getUnitName(leading.unit)} · {leading.measurements[metric]} cm
-              </small>
-            </article>
-            <article className="hero-stat">
-              <span className="hero-stat-label">当前末位</span>
-              <strong className="hero-stat-value">{trailing.japaneseName}</strong>
-              <small>
-                {getUnitName(trailing.unit)} · {trailing.measurements[metric]} cm
-              </small>
-            </article>
-            <article className="hero-stat">
-              <span className="hero-stat-label">区间跨度</span>
-              <strong className="hero-stat-value">{spread} cm</strong>
-              <small>
-                从 {min} cm 到 {max} cm
-              </small>
-            </article>
-            <article className="hero-stat">
-              <span className="hero-stat-label">当前浏览</span>
-              <strong className="hero-stat-value">{metricLabels[metric]}</strong>
-              <small>{directionLabels[direction]}</small>
-            </article>
-          </div>
+          <p className="hero-note">
+            本页像一期短篇数据刊物，封面只放当前最该看的名字，其余信息退到导读和榜单里。
+          </p>
 
           <div className="hero-links">
             <Link className="hero-link is-primary" to="/units">
@@ -78,39 +75,78 @@ export function HomePage() {
           </div>
         </div>
 
-        <section className="hero-showcase" aria-labelledby="spotlight-heading">
-          <h2 className="sr-only" id="spotlight-heading">
-            当前前排
-          </h2>
-          {topThree.map((idol, index) => (
+        <aside className="issue-summary-rail" aria-label="当前摘要">
+          {summaryItems.map((item) => (
             <article
-              key={idol.id}
-              className="spotlight-card"
-              style={{ '--accent': idol.accent } as CSSProperties}
+              key={item.label}
+              className="hero-stat editorial-stat"
             >
-              <div className="spotlight-rank">{formatRank(index + 1)}</div>
-              <IdolVisual idol={idol} compact priority />
-              <div className="spotlight-copy">
-                <p className="spotlight-meta">{getUnitName(idol.unit)}</p>
-                <h2>{idol.name}</h2>
-                <p>{idol.japaneseName}</p>
-              </div>
-              <div className="spotlight-value">
-                <strong>{idol.measurements[metric]}</strong>
-                <small>cm</small>
-              </div>
+              <span className="hero-stat-label">{item.label}</span>
+              <strong className="hero-stat-value">{item.value}</strong>
+              <small>{item.detail}</small>
             </article>
           ))}
-        </section>
+        </aside>
       </section>
 
-      <section className="ranking-shell">
+      <section className="editorial-spotlight" aria-labelledby="spotlight-heading">
+        <header className="section-heading editorial-heading">
+          <div>
+            <p className="section-kicker">Cover Selection</p>
+            <h2 id="spotlight-heading">当前封面组</h2>
+          </div>
+          <p>用一张主封面和两张侧栏卡先看前排，再进入完整档案页式榜单。</p>
+        </header>
+
+        <div className="spotlight-editorial-grid">
+          <article
+            className="spotlight-card spotlight-card-featured"
+            style={{ '--accent': coverLead.accent } as CSSProperties}
+          >
+            <div className="spotlight-rank">{formatRank(1)}</div>
+            <IdolVisual idol={coverLead} priority />
+            <div className="spotlight-copy">
+              <p className="spotlight-meta">{getUnitName(coverLead.unit)}</p>
+              <h2>{coverLead.name}</h2>
+              <p>{coverLead.japaneseName}</p>
+            </div>
+            <div className="spotlight-value">
+              <strong>{coverLead.measurements[metric]}</strong>
+              <small>cm</small>
+            </div>
+          </article>
+
+          <div className="spotlight-stack">
+            {coverStack.map((idol, index) => (
+              <article
+                key={idol.id}
+                className="spotlight-card"
+                style={{ '--accent': idol.accent } as CSSProperties}
+              >
+                <div className="spotlight-rank">{formatRank(index + 2)}</div>
+                <IdolVisual idol={idol} compact priority />
+                <div className="spotlight-copy">
+                  <p className="spotlight-meta">{getUnitName(idol.unit)}</p>
+                  <h2>{idol.name}</h2>
+                  <p>{idol.japaneseName}</p>
+                </div>
+                <div className="spotlight-value">
+                  <strong>{idol.measurements[metric]}</strong>
+                  <small>cm</small>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="ranking-shell ranking-shell-archive">
         <header className="section-heading">
           <div>
-            <p className="section-kicker">Full Ranking</p>
+            <p className="section-kicker">Archive Ranking</p>
             <h2>完整顺位</h2>
           </div>
-          <p>从第 4 位开始继续浏览全员顺位，快速对照组合与数值差距。</p>
+          <p>从第 4 位开始继续浏览全员顺位，用档案列表的方式快速扫名字、组合与数值差距。</p>
         </header>
 
         <div className="ranking-list">
