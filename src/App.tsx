@@ -1,5 +1,6 @@
 import { Suspense, lazy } from 'react'
-import { Link, NavLink, Route, Routes } from 'react-router-dom'
+import { Link, Route, Routes, useLocation } from 'react-router-dom'
+import { StaggeredMenu } from './components/StaggeredMenu'
 import { HomePage } from './pages/HomePage'
 
 const UnitsPage = lazy(async () => {
@@ -34,7 +35,37 @@ function NotFoundPage() {
   )
 }
 
+const navigationItems = [
+  {
+    label: '首页排行',
+    description: '按当前指标浏览全员顺位',
+    to: '/',
+    ariaLabel: '切换到首页排行',
+    end: true,
+  },
+  {
+    label: '小组页',
+    description: '按组合查看成员差异',
+    to: '/units',
+    ariaLabel: '切换到小组页',
+    end: false,
+  },
+  {
+    label: '双人对比',
+    description: '选择两位偶像进行对照',
+    to: '/compare',
+    ariaLabel: '切换到双人对比页',
+    end: false,
+  },
+] as const
+
 export default function App() {
+  const location = useLocation()
+  const activeView =
+    navigationItems.find((item) =>
+      item.end ? location.pathname === item.to : location.pathname.startsWith(item.to),
+    ) ?? navigationItems[0]
+
   return (
     <div className="app-shell">
       <a className="skip-link" href="#main-content">
@@ -55,17 +86,17 @@ export default function App() {
           </Link>
         </div>
 
-        <nav className="site-nav" aria-label="主导航">
-          <NavLink to="/" end>
-            首页排行
-          </NavLink>
-          <NavLink to="/units">小组页</NavLink>
-          <NavLink to="/compare">双人对比</NavLink>
-        </nav>
+        <div className="header-current" aria-live="polite">
+          <p className="brand-kicker">Current Section</p>
+          <strong>{activeView.label}</strong>
+        </div>
 
-        <div className="header-edition" aria-label="当前刊次">
-          <span>Issue</span>
-          <strong>03</strong>
+        <div className="header-utility">
+          <div className="header-edition" aria-label="当前刊次">
+            <span>Issue</span>
+            <strong>03</strong>
+          </div>
+          <StaggeredMenu items={[...navigationItems]} />
         </div>
       </header>
 
