@@ -18,18 +18,12 @@ export function ComparePage() {
 
   return (
     <main className="page page-compare" id="main-content" tabIndex={-1}>
-      <div className="page-controls">
-        <MetricToggle showDirection={false} />
-      </div>
-
-      <section className="hero-panel compare-page-intro">
-        <div className="hero-copy">
+      <section className="page-toolbar" aria-labelledby="compare-heading">
+        <div className="page-title-block">
           <p className="eyebrow">Compare Stage</p>
-          <h1>双人对比</h1>
-          <p className="hero-intro">
-            先选两位偶像，再用当前聚焦的 {metricLabels[metric]} 作为视觉重心去看三项数值的领先关系。
-          </p>
+          <h1 id="compare-heading">双人对比</h1>
         </div>
+        <MetricToggle showDirection={false} />
       </section>
 
       <section className="compare-pickers">
@@ -117,7 +111,6 @@ export function ComparePage() {
 
                 <div className="compare-center">
                   <span>{metricLabels[item.metric]}</span>
-                  {isFocused ? <strong className="compare-focus-tag">Current Focus</strong> : null}
                   <div className={`compare-lead-meter is-${item.winner}`} aria-hidden="true">
                     <div className="compare-lead-track">
                       <div className="compare-lead-axis" />

@@ -11,18 +11,12 @@ export function UnitsPage() {
 
   return (
     <main className="page page-units" id="main-content" tabIndex={-1}>
-      <div className="page-controls">
-        <MetricToggle />
-      </div>
-
-      <section className="hero-panel unit-page-intro">
-        <div className="hero-copy">
+      <section className="page-toolbar" aria-labelledby="units-heading">
+        <div className="page-title-block">
           <p className="eyebrow">Unit Overview</p>
-          <h1>按小组看差异</h1>
-          <p className="hero-intro">
-            同一项数据下，每组的人数、平均值和组内跨度会一起放在页首，方便先判断哪组更整齐、哪组反差更明显。
-          </p>
+          <h1 id="units-heading">按小组看差异</h1>
         </div>
+        <MetricToggle />
       </section>
 
       <UnitJumpTags />
