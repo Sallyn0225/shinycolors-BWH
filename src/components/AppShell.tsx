@@ -14,24 +14,71 @@ const navigation = [
   { route: 'compare' as const, label: '双人对比', description: '两名成员' },
 ]
 
-export function AppShell({ state, onNavigate, children }: AppShellProps) {
-  const overallHref = serializeState({
+function overallNavHref(state: AppState) {
+  // Stay on overall: keep workspace (metric/unit/query/direction). Brand home resets separately.
+  if (state.route === 'overall') {
+    return serializeState(state)
+  }
+  if (state.route === 'units') {
+    return serializeState({
+      route: 'overall',
+      metric: state.metric,
+      query: '',
+      direction: state.direction,
+      theme: state.theme,
+    })
+  }
+  return serializeState({
     route: 'overall',
     metric: 'bust',
     query: '',
     direction: 'desc',
     theme: state.theme,
   })
-  const unitsHref = serializeState({ route: 'units', metric: 'bust', direction: 'desc', theme: state.theme })
-  const compareHref = serializeState({ route: 'compare', theme: state.theme })
+}
 
-  const hrefs = { overall: overallHref, units: unitsHref, compare: compareHref }
+function unitsNavHref(state: AppState) {
+  if (state.route === 'units') {
+    return serializeState(state)
+  }
+  if (state.route === 'overall') {
+    return serializeState({
+      route: 'units',
+      metric: state.metric,
+      direction: state.direction,
+      theme: state.theme,
+    })
+  }
+  return serializeState({ route: 'units', metric: 'bust', direction: 'desc', theme: state.theme })
+}
+
+function compareNavHref(state: AppState) {
+  if (state.route === 'compare') {
+    return serializeState(state)
+  }
+  return serializeState({ route: 'compare', theme: state.theme })
+}
+
+export function AppShell({ state, onNavigate, children }: AppShellProps) {
+  // Brand always returns to a clean overall home; nav links preserve in-route workspace.
+  const homeHref = serializeState({
+    route: 'overall',
+    metric: 'bust',
+    query: '',
+    direction: 'desc',
+    theme: state.theme,
+  })
+  const hrefs = {
+    overall: overallNavHref(state),
+    units: unitsNavHref(state),
+    compare: compareNavHref(state),
+  }
 
   return (
     <div className="app-shell">
       <header className="site-header">
         <div className="shell header-inner">
-          <a className="brand" href={overallHref} aria-label="闪耀色彩三围资料首页">
+          <a className="brand" href={homeHref} aria-label="闪耀色彩三围资料首页">
             <span className="brand-mark" aria-hidden="true">
               <span />
               <span />

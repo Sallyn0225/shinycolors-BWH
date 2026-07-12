@@ -34,6 +34,16 @@ describe('data and domain rules', () => {
     expect(tied.map(({ member }) => member.id)).toEqual(['meguru_hachimiya', 'mei_izumi'])
     expect(tied.map(({ rank }) => rank)).toEqual([3, 3])
     expect(ranked.find(({ member }) => member.measurements.bust === 89)?.rank).toBe(5)
+    expect(ranked[0].globalRank).toBe(ranked[0].rank)
+  })
+
+  it('keeps full-roster global ranks when the list is filtered', () => {
+    const mano = allMembers.find((member) => member.id === 'mano_sakuragi')!
+    const full = rankMembers(allMembers, 'bust', 'desc')
+    const filtered = rankMembers([mano], 'bust', 'desc', { globalMembers: allMembers })
+    expect(filtered).toHaveLength(1)
+    expect(filtered[0].rank).toBe(1)
+    expect(filtered[0].globalRank).toBe(full.find((row) => row.member.id === 'mano_sakuragi')!.rank)
   })
 
   it('keeps member bars on the global scale', () => {

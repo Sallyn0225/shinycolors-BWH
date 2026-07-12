@@ -13,9 +13,11 @@ function compactMeasurements(member: Idol) {
 interface RankingListProps {
   rows: RankedMember[]
   metric: Metric
+  /** When true, show full-roster rank beside the filtered rank. */
+  showGlobalRank?: boolean
 }
 
-export function RankingList({ rows, metric }: RankingListProps) {
+export function RankingList({ rows, metric, showGlobalRank = false }: RankingListProps) {
   return (
     <div className="table-wrap">
       <table className="ranking-table">
@@ -38,12 +40,20 @@ export function RankingList({ rows, metric }: RankingListProps) {
           </tr>
         </thead>
         <tbody>
-          {rows.map(({ member, rank }) => {
+          {rows.map(({ member, rank, globalRank }) => {
             const value = member.measurements[metric]
+            const fillPercent = progressPercent(value, metric)
             return (
               <tr key={member.id}>
                 <td className="rank-cell" data-label="名次">
-                  <span className="rank-number">{String(rank).padStart(2, '0')}</span>
+                  <span className="rank-stack">
+                    <span className="rank-number">{String(rank).padStart(2, '0')}</span>
+                    {showGlobalRank ? (
+                      <span className="rank-global" title="全部成员中的名次">
+                        全员 {String(globalRank).padStart(2, '0')}
+                      </span>
+                    ) : null}
+                  </span>
                 </td>
                 <td className="member-cell" data-label="成员">
                   <div className="member-identity">
@@ -72,17 +82,11 @@ export function RankingList({ rows, metric }: RankingListProps) {
                   <span>cm</span>
                 </td>
                 <td className="bar-cell" data-label="全局位置">
-                  <div
-                    className="metric-bar"
-                    role="progressbar"
-                    aria-valuemin={0}
-                    aria-valuemax={100}
-                    aria-valuenow={value}
-                    aria-valuetext={`${metricLabels[metric].name} ${value} 厘米`}
-                  >
+                  {/* Decorative range cue; the numeric cm cell is the accessible value. */}
+                  <div className="metric-bar" aria-hidden="true">
                     <span
                       className="metric-bar-fill"
-                      style={{ width: `${progressPercent(value, metric)}%`, backgroundColor: member.representativeColor.hex }}
+                      style={{ width: `${fillPercent}%`, backgroundColor: member.representativeColor.hex }}
                     />
                   </div>
                 </td>
@@ -116,7 +120,7 @@ export function EmptyState({ hasQuery, onClearQuery, onReset }: EmptyStateProps)
         0
       </span>
       <div>
-        <h2>没有找到符合条件的成员</h2>
+        <h3 className="empty-title">没有找到符合条件的成员</h3>
         <p>保留当前控件，你可以清除姓名搜索或重置全部筛选。</p>
         <div className="empty-actions">
           {hasQuery ? (

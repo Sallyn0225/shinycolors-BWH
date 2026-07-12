@@ -12,7 +12,10 @@ interface OverallPageProps {
 
 export function OverallPage({ state, onNavigate }: OverallPageProps) {
   const filteredMembers = filterMembers(allMembers, { unitId: state.unitId, query: state.query })
-  const rankedMembers = rankMembers(filteredMembers, state.metric, state.direction)
+  const isFiltered = Boolean(state.unitId || state.query)
+  const rankedMembers = rankMembers(filteredMembers, state.metric, state.direction, {
+    globalMembers: isFiltered ? allMembers : undefined,
+  })
   const selectedUnit = state.unitId ? unitById.get(state.unitId) : undefined
   const isDefault = !state.unitId && !state.query && state.metric === 'bust' && state.direction === 'desc'
 
@@ -26,6 +29,10 @@ export function OverallPage({ state, onNavigate }: OverallPageProps) {
   const summary = selectedUnit
     ? `${selectedUnit.nameJa}，共 ${filteredMembers.length} 名成员`
     : `共 ${filteredMembers.length} 名成员`
+
+  const metricLabel =
+    state.metric === 'bust' ? '胸围 B' : state.metric === 'waist' ? '腰围 W' : '臀围 H'
+  const directionLabel = state.direction === 'desc' ? '从高到低' : '从低到高'
 
   return (
     <>
@@ -50,8 +57,11 @@ export function OverallPage({ state, onNavigate }: OverallPageProps) {
           <div>
             <h2 id="overall-results-title">{summary}</h2>
             <p>
-              当前主排序：{state.metric === 'bust' ? '胸围 B' : state.metric === 'waist' ? '腰围 W' : '臀围 H'}，
-              {state.direction === 'desc' ? '从高到低' : '从低到高'}。进度条固定使用全部成员的全局范围。
+              当前主排序：{metricLabel}，{directionLabel}。
+              {isFiltered ? (
+                <span className="results-filter-note">名次为当前筛选内顺序；「全员」为全部 28 名中的名次。</span>
+              ) : null}
+              <span className="results-bar-note">进度条固定使用全部成员的全局范围。</span>
             </p>
           </div>
           <span className="results-count" aria-live="polite">
@@ -60,7 +70,7 @@ export function OverallPage({ state, onNavigate }: OverallPageProps) {
         </div>
 
         {rankedMembers.length ? (
-          <RankingList rows={rankedMembers} metric={state.metric} />
+          <RankingList rows={rankedMembers} metric={state.metric} showGlobalRank={isFiltered} />
         ) : (
           <EmptyState hasQuery={Boolean(state.query)} onClearQuery={() => updateQuery('')} onReset={reset} />
         )}

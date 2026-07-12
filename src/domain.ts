@@ -15,6 +15,8 @@ export interface MemberFilters {
 export interface RankedMember {
   member: Idol
   rank: number
+  /** Rank among the full roster for the same metric/direction; equals `rank` when unfiltered. */
+  globalRank: number
 }
 
 export interface UnitSummary {
@@ -49,15 +51,43 @@ export function sortMembers(members: Idol[], metric: Metric, direction: Directio
   })
 }
 
-export function rankMembers(members: Idol[], metric: Metric, direction: Direction): RankedMember[] {
+export function rankMembers(
+  members: Idol[],
+  metric: Metric,
+  direction: Direction,
+  options?: { globalMembers?: Idol[] },
+): RankedMember[] {
   const sorted = sortMembers(members, metric, direction)
   let rank = 0
-  return sorted.map((member, index) => {
+  const localRanks = sorted.map((member, index) => {
     if (index === 0 || member.measurements[metric] !== sorted[index - 1].measurements[metric]) {
       rank = index + 1
     }
     return { member, rank }
   })
+
+  const globalPool = options?.globalMembers
+  if (!globalPool || globalPool === members) {
+    return localRanks.map((row) => ({ ...row, globalRank: row.rank }))
+  }
+
+  const globalSorted = sortMembers(globalPool, metric, direction)
+  const globalRankById = new Map<string, number>()
+  let globalRank = 0
+  globalSorted.forEach((member, index) => {
+    if (
+      index === 0 ||
+      member.measurements[metric] !== globalSorted[index - 1].measurements[metric]
+    ) {
+      globalRank = index + 1
+    }
+    globalRankById.set(member.id, globalRank)
+  })
+
+  return localRanks.map((row) => ({
+    ...row,
+    globalRank: globalRankById.get(row.member.id) ?? row.rank,
+  }))
 }
 
 export function progressPercent(value: number, metric: Metric) {
