@@ -6,3 +6,9 @@ skills-lock.json
 # Playwright MCP temporary output
 .playwright-mcp/
 network-assets.txt
+
+# Node build output
+node_modules/
+dist/
+.vite/
+*.local

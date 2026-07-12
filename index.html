@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f7fb" />
+    <meta name="description" content="闪耀色彩 28 名偶像的 B/W/H 资料浏览、组合平均值与双人对比工具。" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%232455b7'/%3E%3C/svg%3E" />
+    <title>闪耀色彩三围资料</title>
+    <script>
+      (() => {
+        const hashQuery = window.location.hash.includes('?')
+          ? window.location.hash.split('?')[1]
+          : ''
+        const urlTheme = new URLSearchParams(hashQuery).get('theme')
+        let storedTheme = ''
+        try {
+          storedTheme = window.localStorage.getItem('shiny-colors-theme') || ''
+        } catch {
+          storedTheme = ''
+        }
+        const theme = ['system', 'light', 'dark'].includes(urlTheme || '')
+          ? urlTheme
+          : ['system', 'light', 'dark'].includes(storedTheme)
+            ? storedTheme
+            : 'system'
+        document.documentElement.dataset.theme = theme
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

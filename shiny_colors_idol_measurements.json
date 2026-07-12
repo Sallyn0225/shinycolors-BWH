@@ -1,8 +1,12 @@
 {
   "title": "偶像大师 闪耀色彩 28名偶像三围数据库",
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "idol_count": 28,
-  "measurement_order": ["bust", "waist", "hip"],
+  "measurement_order": [
+    "bust",
+    "waist",
+    "hip"
+  ],
   "measurement_unit": "cm",
   "source": {
     "type": "official",
@@ -22,24 +26,72 @@
           "id": "mano_sakuragi",
           "name_ja": "櫻木 真乃",
           "name_en": "Mano Sakuragi",
-          "measurements_cm": { "bust": 86, "waist": 58, "hip": 88 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/illuminationstars/mano/"
+          "measurements_cm": {
+            "bust": 86,
+            "waist": 58,
+            "hip": 88
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/illuminationstars/mano/",
+          "source_id": 1,
+          "representative_color": {
+            "hex": "#ffbad6",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=1",
+            "verified_at": "2026-07-12"
+          }
         },
         {
           "id": "hiori_kazano",
           "name_ja": "風野 灯織",
           "name_en": "Hiori Kazano",
-          "measurements_cm": { "bust": 75, "waist": 55, "hip": 78 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/illuminationstars/hiori/"
+          "measurements_cm": {
+            "bust": 75,
+            "waist": 55,
+            "hip": 78
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/illuminationstars/hiori/",
+          "source_id": 2,
+          "representative_color": {
+            "hex": "#144384",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=2",
+            "verified_at": "2026-07-12"
+          }
         },
         {
           "id": "meguru_hachimiya",
           "name_ja": "八宮 めぐる",
           "name_en": "Meguru Hachimiya",
-          "measurements_cm": { "bust": 90, "waist": 59, "hip": 89 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/illuminationstars/meguru/"
+          "measurements_cm": {
+            "bust": 90,
+            "waist": 59,
+            "hip": 89
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/illuminationstars/meguru/",
+          "source_id": 3,
+          "representative_color": {
+            "hex": "#ffe012",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=3",
+            "verified_at": "2026-07-12"
+          }
         }
-      ]
+      ],
+      "source_id": 1,
+      "representative_colors": {
+        "soft": "#ffea86",
+        "primary": "#ffe462",
+        "source": "shinycolors_moe",
+        "source_fields": {
+          "soft": "color1",
+          "primary": "color2"
+        },
+        "source_url": "https://api.shinycolors.moe/info/unitInfo",
+        "verified_at": "2026-07-12"
+      }
     },
     {
       "unit_id": "lantica",
@@ -50,38 +102,110 @@
           "id": "kogane_tsukioka",
           "name_ja": "月岡 恋鐘",
           "name_en": "Kogane Tsukioka",
-          "measurements_cm": { "bust": 93, "waist": 60, "hip": 91 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/lantica/kogane/"
+          "measurements_cm": {
+            "bust": 93,
+            "waist": 60,
+            "hip": 91
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/lantica/kogane/",
+          "source_id": 4,
+          "representative_color": {
+            "hex": "#f84cad",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=4",
+            "verified_at": "2026-07-12"
+          }
         },
         {
           "id": "kiriko_yukoku",
           "name_ja": "幽谷 霧子",
           "name_en": "Kiriko Yukoku",
-          "measurements_cm": { "bust": 79, "waist": 55, "hip": 81 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/lantica/kiriko/"
+          "measurements_cm": {
+            "bust": 79,
+            "waist": 55,
+            "hip": 81
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/lantica/kiriko/",
+          "source_id": 8,
+          "representative_color": {
+            "hex": "#d9f2ff",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=8",
+            "verified_at": "2026-07-12"
+          }
         },
         {
           "id": "yuika_mitsumine",
           "name_ja": "三峰 結華",
           "name_en": "Yuika Mitsumine",
-          "measurements_cm": { "bust": 73, "waist": 52, "hip": 81 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/lantica/yuika/"
+          "measurements_cm": {
+            "bust": 73,
+            "waist": 52,
+            "hip": 81
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/lantica/yuika/",
+          "source_id": 7,
+          "representative_color": {
+            "hex": "#3b91c4",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=7",
+            "verified_at": "2026-07-12"
+          }
         },
         {
           "id": "mamimi_tanaka",
           "name_ja": "田中 摩美々",
           "name_en": "Mamimi Tanaka",
-          "measurements_cm": { "bust": 81, "waist": 56, "hip": 83 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/lantica/mamimi/"
+          "measurements_cm": {
+            "bust": 81,
+            "waist": 56,
+            "hip": 83
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/lantica/mamimi/",
+          "source_id": 5,
+          "representative_color": {
+            "hex": "#a846fb",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=5",
+            "verified_at": "2026-07-12"
+          }
         },
         {
           "id": "sakuya_shirase",
           "name_ja": "白瀬 咲耶",
           "name_en": "Sakuya Shirase",
-          "measurements_cm": { "bust": 91, "waist": 58, "hip": 87 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/lantica/sakuya/"
+          "measurements_cm": {
+            "bust": 91,
+            "waist": 58,
+            "hip": 87
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/lantica/sakuya/",
+          "source_id": 6,
+          "representative_color": {
+            "hex": "#006047",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=6",
+            "verified_at": "2026-07-12"
+          }
         }
-      ]
+      ],
+      "source_id": 2,
+      "representative_colors": {
+        "soft": "#f7d8ff",
+        "primary": "#e3b1fa",
+        "source": "shinycolors_moe",
+        "source_fields": {
+          "soft": "color1",
+          "primary": "color2"
+        },
+        "source_url": "https://api.shinycolors.moe/info/unitInfo",
+        "verified_at": "2026-07-12"
+      }
     },
     {
       "unit_id": "hokagoclimaxgirls",
@@ -92,38 +216,110 @@
           "id": "kaho_komiya",
           "name_ja": "小宮 果穂",
           "name_en": "Kaho Komiya",
-          "measurements_cm": { "bust": 80, "waist": 57, "hip": 83 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/hokagoclimaxgirls/kaho/"
+          "measurements_cm": {
+            "bust": 80,
+            "waist": 57,
+            "hip": 83
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/hokagoclimaxgirls/kaho/",
+          "source_id": 9,
+          "representative_color": {
+            "hex": "#e5461c",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=9",
+            "verified_at": "2026-07-12"
+          }
         },
         {
           "id": "chiyoko_sonoda",
           "name_ja": "園田 智代子",
           "name_en": "Chiyoko Sonoda",
-          "measurements_cm": { "bust": 85, "waist": 56, "hip": 82 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/hokagoclimaxgirls/chiyoko/"
+          "measurements_cm": {
+            "bust": 85,
+            "waist": 56,
+            "hip": 82
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/hokagoclimaxgirls/chiyoko/",
+          "source_id": 10,
+          "representative_color": {
+            "hex": "#f93b90",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=10",
+            "verified_at": "2026-07-12"
+          }
         },
         {
           "id": "juri_saijo",
           "name_ja": "西城 樹里",
           "name_en": "Juri Saijo",
-          "measurements_cm": { "bust": 75, "waist": 58, "hip": 78 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/hokagoclimaxgirls/juri/"
+          "measurements_cm": {
+            "bust": 75,
+            "waist": 58,
+            "hip": 78
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/hokagoclimaxgirls/juri/",
+          "source_id": 11,
+          "representative_color": {
+            "hex": "#ffc602",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=11",
+            "verified_at": "2026-07-12"
+          }
         },
         {
           "id": "rinze_morino",
           "name_ja": "杜野 凛世",
           "name_en": "Rinze Morino",
-          "measurements_cm": { "bust": 70, "waist": 54, "hip": 78 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/hokagoclimaxgirls/rinze/"
+          "measurements_cm": {
+            "bust": 70,
+            "waist": 54,
+            "hip": 78
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/hokagoclimaxgirls/rinze/",
+          "source_id": 12,
+          "representative_color": {
+            "hex": "#89c3eb",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=12",
+            "verified_at": "2026-07-12"
+          }
         },
         {
           "id": "natsuha_arisugawa",
           "name_ja": "有栖川 夏葉",
           "name_en": "Natsuha Arisugawa",
-          "measurements_cm": { "bust": 85, "waist": 58, "hip": 84 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/hokagoclimaxgirls/natsuha/"
+          "measurements_cm": {
+            "bust": 85,
+            "waist": 58,
+            "hip": 84
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/hokagoclimaxgirls/natsuha/",
+          "source_id": 13,
+          "representative_color": {
+            "hex": "#90e667",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=13",
+            "verified_at": "2026-07-12"
+          }
         }
-      ]
+      ],
+      "source_id": 3,
+      "representative_colors": {
+        "soft": "#fedec7",
+        "primary": "#ffa95c",
+        "source": "shinycolors_moe",
+        "source_fields": {
+          "soft": "color1",
+          "primary": "color2"
+        },
+        "source_url": "https://api.shinycolors.moe/info/unitInfo",
+        "verified_at": "2026-07-12"
+      }
     },
     {
       "unit_id": "alstroemeria",
@@ -134,24 +330,72 @@
           "id": "chiyuki_kuwayama",
           "name_ja": "桑山 千雪",
           "name_en": "Chiyuki Kuwayama",
-          "measurements_cm": { "bust": 89, "waist": 58, "hip": 92 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/alstroemeria/chiyuki/"
+          "measurements_cm": {
+            "bust": 89,
+            "waist": 58,
+            "hip": 92
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/alstroemeria/chiyuki/",
+          "source_id": 16,
+          "representative_color": {
+            "hex": "#fbfafa",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=16",
+            "verified_at": "2026-07-12"
+          }
         },
         {
           "id": "amana_osaki",
           "name_ja": "大崎 甘奈",
           "name_en": "Amana Osaki",
-          "measurements_cm": { "bust": 80, "waist": 56, "hip": 80 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/alstroemeria/amana/"
+          "measurements_cm": {
+            "bust": 80,
+            "waist": 56,
+            "hip": 80
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/alstroemeria/amana/",
+          "source_id": 14,
+          "representative_color": {
+            "hex": "#f54275",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=14",
+            "verified_at": "2026-07-12"
+          }
         },
         {
           "id": "tenka_osaki",
           "name_ja": "大崎 甜花",
           "name_en": "Tenka Osaki",
-          "measurements_cm": { "bust": 81, "waist": 58, "hip": 83 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/alstroemeria/tenka/"
+          "measurements_cm": {
+            "bust": 81,
+            "waist": 58,
+            "hip": 83
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/alstroemeria/tenka/",
+          "source_id": 15,
+          "representative_color": {
+            "hex": "#e75bec",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=15",
+            "verified_at": "2026-07-12"
+          }
         }
-      ]
+      ],
+      "source_id": 4,
+      "representative_colors": {
+        "soft": "#ffd9e6",
+        "primary": "#ffabc9",
+        "source": "shinycolors_moe",
+        "source_fields": {
+          "soft": "color1",
+          "primary": "color2"
+        },
+        "source_url": "https://api.shinycolors.moe/info/unitInfo",
+        "verified_at": "2026-07-12"
+      }
     },
     {
       "unit_id": "straylight",
@@ -162,24 +406,72 @@
           "id": "asahi_serizawa",
           "name_ja": "芹沢 あさひ",
           "name_en": "Asahi Serizawa",
-          "measurements_cm": { "bust": 78, "waist": 58, "hip": 77 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/straylight/asahi/"
+          "measurements_cm": {
+            "bust": 78,
+            "waist": 58,
+            "hip": 77
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/straylight/asahi/",
+          "source_id": 17,
+          "representative_color": {
+            "hex": "#f30100",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=17",
+            "verified_at": "2026-07-12"
+          }
         },
         {
           "id": "fuyuko_mayuzumi",
           "name_ja": "黛 冬優子",
           "name_en": "Fuyuko Mayuzumi",
-          "measurements_cm": { "bust": 78, "waist": 59, "hip": 81 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/straylight/fuyuko/"
+          "measurements_cm": {
+            "bust": 78,
+            "waist": 59,
+            "hip": 81
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/straylight/fuyuko/",
+          "source_id": 18,
+          "representative_color": {
+            "hex": "#5ce626",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=18",
+            "verified_at": "2026-07-12"
+          }
         },
         {
           "id": "mei_izumi",
           "name_ja": "和泉 愛依",
           "name_en": "Mei Izumi",
-          "measurements_cm": { "bust": 90, "waist": 58, "hip": 88 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/straylight/mei/"
+          "measurements_cm": {
+            "bust": 90,
+            "waist": 58,
+            "hip": 88
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/straylight/mei/",
+          "source_id": 19,
+          "representative_color": {
+            "hex": "#ff00ff",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=19",
+            "verified_at": "2026-07-12"
+          }
         }
-      ]
+      ],
+      "source_id": 5,
+      "representative_colors": {
+        "soft": "#ffdbdb",
+        "primary": "#ffb3b6",
+        "source": "shinycolors_moe",
+        "source_fields": {
+          "soft": "color1",
+          "primary": "color2"
+        },
+        "source_url": "https://api.shinycolors.moe/info/unitInfo",
+        "verified_at": "2026-07-12"
+      }
     },
     {
       "unit_id": "noctchill",
@@ -190,31 +482,91 @@
           "id": "toru_asakura",
           "name_ja": "浅倉 透",
           "name_en": "Toru Asakura",
-          "measurements_cm": { "bust": 82, "waist": 57, "hip": 78 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/noctchill/toru/"
+          "measurements_cm": {
+            "bust": 82,
+            "waist": 57,
+            "hip": 78
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/noctchill/toru/",
+          "source_id": 20,
+          "representative_color": {
+            "hex": "#50d0d0",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=20",
+            "verified_at": "2026-07-12"
+          }
         },
         {
           "id": "madoka_higuchi",
           "name_ja": "樋口 円香",
           "name_en": "Madoka Higuchi",
-          "measurements_cm": { "bust": 79, "waist": 55, "hip": 79 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/noctchill/madoka/"
+          "measurements_cm": {
+            "bust": 79,
+            "waist": 55,
+            "hip": 79
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/noctchill/madoka/",
+          "source_id": 21,
+          "representative_color": {
+            "hex": "#be1e3e",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=21",
+            "verified_at": "2026-07-12"
+          }
         },
         {
           "id": "koito_fukumaru",
           "name_ja": "福丸 小糸",
           "name_en": "Koito Fukumaru",
-          "measurements_cm": { "bust": 71, "waist": 54, "hip": 73 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/noctchill/koito/"
+          "measurements_cm": {
+            "bust": 71,
+            "waist": 54,
+            "hip": 73
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/noctchill/koito/",
+          "source_id": 22,
+          "representative_color": {
+            "hex": "#7967c3",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=22",
+            "verified_at": "2026-07-12"
+          }
         },
         {
           "id": "hinana_ichikawa",
           "name_ja": "市川 雛菜",
           "name_en": "Hinana Ichikawa",
-          "measurements_cm": { "bust": 87, "waist": 60, "hip": 86 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/noctchill/hinana/"
+          "measurements_cm": {
+            "bust": 87,
+            "waist": 60,
+            "hip": 86
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/noctchill/hinana/",
+          "source_id": 23,
+          "representative_color": {
+            "hex": "#ffc639",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=23",
+            "verified_at": "2026-07-12"
+          }
         }
-      ]
+      ],
+      "source_id": 6,
+      "representative_colors": {
+        "soft": "#dbe4ff",
+        "primary": "#a9bbfd",
+        "source": "shinycolors_moe",
+        "source_fields": {
+          "soft": "color1",
+          "primary": "color2"
+        },
+        "source_url": "https://api.shinycolors.moe/info/unitInfo",
+        "verified_at": "2026-07-12"
+      }
     },
     {
       "unit_id": "shhis",
@@ -225,17 +577,53 @@
           "id": "nichika_nanakusa",
           "name_ja": "七草 にちか",
           "name_en": "Nichika Nanakusa",
-          "measurements_cm": { "bust": 82, "waist": 55, "hip": 84 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/shhis/nichika/"
+          "measurements_cm": {
+            "bust": 82,
+            "waist": 55,
+            "hip": 84
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/shhis/nichika/",
+          "source_id": 24,
+          "representative_color": {
+            "hex": "#a6ceb6",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=24",
+            "verified_at": "2026-07-12"
+          }
         },
         {
           "id": "mikoto_aketa",
           "name_ja": "緋田 美琴",
           "name_en": "Mikoto Aketa",
-          "measurements_cm": { "bust": 85, "waist": 57, "hip": 85 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/shhis/mikoto/"
+          "measurements_cm": {
+            "bust": 85,
+            "waist": 57,
+            "hip": 85
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/shhis/mikoto/",
+          "source_id": 25,
+          "representative_color": {
+            "hex": "#760f10",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=25",
+            "verified_at": "2026-07-12"
+          }
         }
-      ]
+      ],
+      "source_id": 7,
+      "representative_colors": {
+        "soft": "#c3f4ee",
+        "primary": "#8cdbd1",
+        "source": "shinycolors_moe",
+        "source_fields": {
+          "soft": "color1",
+          "primary": "color2"
+        },
+        "source_url": "https://api.shinycolors.moe/info/unitInfo",
+        "verified_at": "2026-07-12"
+      }
     },
     {
       "unit_id": "cometik",
@@ -246,24 +634,72 @@
           "id": "luca_ikaruga",
           "name_ja": "斑鳩 ルカ",
           "name_en": "Luca Ikaruga",
-          "measurements_cm": { "bust": 76, "waist": 54, "hip": 78 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/cometik/luca/"
+          "measurements_cm": {
+            "bust": 76,
+            "waist": 54,
+            "hip": 78
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/cometik/luca/",
+          "source_id": 26,
+          "representative_color": {
+            "hex": "#24130d",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=26",
+            "verified_at": "2026-07-12"
+          }
         },
         {
           "id": "hana_suzuki",
           "name_ja": "鈴木 羽那",
           "name_en": "Hana Suzuki",
-          "measurements_cm": { "bust": 84, "waist": 58, "hip": 82 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/cometik/hana/"
+          "measurements_cm": {
+            "bust": 84,
+            "waist": 58,
+            "hip": 82
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/cometik/hana/",
+          "source_id": 27,
+          "representative_color": {
+            "hex": "#e0b5d3",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=27",
+            "verified_at": "2026-07-12"
+          }
         },
         {
           "id": "haruki_ikuta",
           "name_ja": "郁田 はるき",
           "name_en": "Haruki Ikuta",
-          "measurements_cm": { "bust": 82, "waist": 57, "hip": 83 },
-          "source_url": "https://shinycolors.idolmaster-official.jp/idol/cometik/haruki/"
+          "measurements_cm": {
+            "bust": 82,
+            "waist": 57,
+            "hip": 83
+          },
+          "source_url": "https://shinycolors.idolmaster-official.jp/idol/cometik/haruki/",
+          "source_id": 28,
+          "representative_color": {
+            "hex": "#ead7a4",
+            "source": "shinycolors_moe",
+            "source_field": "color2",
+            "source_url": "https://api.shinycolors.moe/info/idolInfo?idolId=28",
+            "verified_at": "2026-07-12"
+          }
         }
-      ]
+      ],
+      "source_id": 8,
+      "representative_colors": {
+        "soft": "#827976",
+        "primary": "#827976",
+        "source": "shinycolors_moe",
+        "source_fields": {
+          "soft": "color1",
+          "primary": "color2"
+        },
+        "source_url": "https://api.shinycolors.moe/info/unitInfo",
+        "verified_at": "2026-07-12"
+      }
     }
   ]
 }
