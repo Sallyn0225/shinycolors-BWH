@@ -39,3 +39,7 @@ Desktop.ini
 .idea/
 .vscode/*
 !.vscode/extensions.json
+
+# Critique / dual-agent assessment screenshots
+assessment-*.png
+

@@ -1,4 +1,3 @@
-import type { CSSProperties } from 'react'
 import { metricLabels, memberById, type Idol, type Metric } from '../data'
 import { difference } from '../domain'
 import { PageIntro } from '../components/AppShell'
@@ -55,7 +54,14 @@ export function ComparePage({ state, onNavigate }: ComparePageProps) {
           <span className="swap-slot-spacer" aria-hidden="true">
             成员
           </span>
-          <button type="button" className="swap-button" onClick={swap} disabled={!ready} aria-label="交换成员 A 和成员 B">
+          <button
+            type="button"
+            className="swap-button"
+            onClick={swap}
+            disabled={!ready}
+            title={ready ? '交换成员 A 和成员 B' : '选择两名成员后可交换'}
+            aria-label="交换成员 A 和成员 B"
+          >
             <svg className="swap-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
               <path
                 fill="none"
@@ -80,7 +86,7 @@ export function ComparePage({ state, onNavigate }: ComparePageProps) {
             <span>B</span>
           </div>
           <h2>{state.memberA ? '再选择一名成员' : '选择两名成员开始对比'}</h2>
-          <p>对比图和完整数值表会在两侧选择完成后显示。</p>
+          <p>原始数值表与相对位置图会在两侧选择完成后显示。</p>
         </section>
       ) : (
         <ComparisonResult memberA={memberA} memberB={memberB} />
@@ -104,7 +110,7 @@ function ComparisonResult({ memberA, memberB }: { memberA: Idol; memberB: Idol }
           <h2 id="comparison-title">
             {memberA.nameJa} 与 {memberB.nameJa}
           </h2>
-          <p>图形使用三项维度各自的全局范围归一化，表格保留原始厘米数值。</p>
+          <p>原始厘米优先；相对位置图使用各维度全局范围归一化，不是评分。</p>
         </div>
         <div className="series-legend" aria-label="图表图例">
           <span>
@@ -116,84 +122,11 @@ function ComparisonResult({ memberA, memberB }: { memberA: Idol; memberB: Idol }
         </div>
       </div>
 
-      <MetricGlance rows={rows} memberA={memberA} memberB={memberB} />
-
       <div className="comparison-board">
-        <IdentityCard label="A" member={memberA} />
-        <IdentityCard label="B" member={memberB} />
-        <RadarChart memberA={memberA} memberB={memberB} />
         <ComparisonTable rows={rows} memberA={memberA} memberB={memberB} />
+        <RadarChart memberA={memberA} memberB={memberB} />
       </div>
     </section>
-  )
-}
-
-function MetricGlance({
-  rows,
-  memberA,
-  memberB,
-}: {
-  rows: Array<{ metric: Metric; valueA: number; valueB: number; delta: number; lead: LeadSide }>
-  memberA: Idol
-  memberB: Idol
-}) {
-  return (
-    <ul className="metric-glance" aria-label="各维度数值更高一方">
-      {rows.map(({ metric, valueA, valueB, delta, lead }) => {
-        const label = `${metricLabels[metric].name} ${metricLabels[metric].short}`
-        const higherName = lead === 'a' ? memberA.nameJa : lead === 'b' ? memberB.nameJa : null
-        const margin = Math.abs(delta)
-        const leadText =
-          lead === 'tie' ? '相同' : `${lead === 'a' ? 'A' : 'B'} · ${higherName} 更高 ${margin} cm`
-
-        return (
-          <li key={metric} className={`metric-glance-item lead-${lead}`}>
-            <div className="metric-glance-top">
-              <span className="metric-glance-label">{label}</span>
-              <span className={`metric-glance-badge lead-${lead}`}>{lead === 'tie' ? '相同' : '更高'}</span>
-            </div>
-            <div className="metric-glance-values" aria-hidden="true">
-              <span className={lead === 'a' ? 'is-higher' : undefined}>
-                <i className="series-marker series-marker-a" />
-                {valueA}
-              </span>
-              <span className="metric-glance-sep">:</span>
-              <span className={lead === 'b' ? 'is-higher' : undefined}>
-                <i className="series-marker series-marker-b" />
-                {valueB}
-              </span>
-            </div>
-            <p className="metric-glance-lead">{leadText}</p>
-          </li>
-        )
-      })}
-    </ul>
-  )
-}
-
-function IdentityCard({ label, member }: { label: string; member: Idol }) {
-  return (
-    <article className="identity-card">
-      <div className="identity-card-label">
-        <span className={`series-marker series-marker-${label.toLowerCase()}`} aria-hidden="true" />
-        成员 {label}
-      </div>
-      <div className="identity-card-content">
-        <span className="avatar-frame" style={{ '--identity-color': member.representativeColor.hex } as CSSProperties}>
-          <img src={member.iconUrl} alt="" width="54" height="54" />
-        </span>
-        <div className="identity-copy">
-          <strong>{member.nameJa}</strong>
-          <span>{member.nameEn}</span>
-          <small>
-            {member.unitNameJa} / {member.unitName}
-          </small>
-        </div>
-      </div>
-      <a href={member.sourceUrl} target="_blank" rel="noreferrer">
-        打开官方资料 <span aria-hidden="true">↗</span>
-      </a>
-    </article>
   )
 }
 
@@ -209,14 +142,14 @@ function ComparisonTable({
   return (
     <div className="comparison-table-wrap">
       <table className="comparison-table">
-        <caption>原始 B/W/H 数值与差值，差值定义为 A 减 B；更高一列会高亮</caption>
+        <caption>原始 B/W/H 数值与差值，差值定义为 A 减 B；较大一侧以字重标出</caption>
         <thead>
           <tr>
             <th scope="col">维度</th>
             <th scope="col">A · {memberA.nameJa}</th>
             <th scope="col">B · {memberB.nameJa}</th>
             <th scope="col">A - B</th>
-            <th scope="col">更高</th>
+            <th scope="col">较大</th>
           </tr>
         </thead>
         <tbody>
@@ -227,9 +160,7 @@ function ComparisonTable({
               </th>
               <td className={lead === 'a' ? 'value-higher' : undefined}>{valueA} cm</td>
               <td className={lead === 'b' ? 'value-higher' : undefined}>{valueB} cm</td>
-              <td className={delta > 0 ? 'difference positive' : delta < 0 ? 'difference negative' : 'difference'}>
-                {formatDifference(delta)} cm
-              </td>
+              <td className="difference">{formatDifference(delta)} cm</td>
               <td>
                 <span
                   className={`lead-chip lead-${lead}`}
@@ -237,11 +168,21 @@ function ComparisonTable({
                     lead === 'tie'
                       ? '两人数值相同'
                       : lead === 'a'
-                        ? `${memberA.nameJa} 数值更高`
-                        : `${memberB.nameJa} 数值更高`
+                        ? `${memberA.nameJa} 数值较大`
+                        : `${memberB.nameJa} 数值较大`
                   }
                 >
-                  {lead === 'tie' ? '相同' : lead === 'a' ? 'A 更高' : 'B 更高'}
+                  {lead === 'tie' ? (
+                    '相同'
+                  ) : (
+                    <>
+                      <i
+                        className={`series-marker series-marker-${lead}`}
+                        aria-hidden="true"
+                      />
+                      {lead === 'a' ? 'A 较大' : 'B 较大'}
+                    </>
+                  )}
                 </span>
               </td>
             </tr>

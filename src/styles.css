@@ -349,8 +349,7 @@ img {
 }
 
 .theme-control select,
-.select-control select,
-.member-picker select {
+.select-control select {
   height: 42px;
   min-height: 42px;
   border: 1px solid var(--border-strong);
@@ -523,8 +522,7 @@ img {
   opacity: 0.85;
 }
 
-.select-control select,
-.member-picker select {
+.select-control select {
   width: 100%;
   padding: 0 12px;
   line-height: 1.2;
@@ -858,7 +856,7 @@ tbody tr:hover {
 .identity-copy small {
   overflow: hidden;
   color: var(--text-muted);
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -1229,8 +1227,101 @@ tbody tr:hover {
   pointer-events: none;
 }
 
-.member-picker select {
+.member-combobox {
+  position: relative;
+  width: 100%;
+}
+
+.member-combobox-field {
+  height: 46px;
+}
+
+.member-combobox-field input {
+  height: 46px;
   min-height: 46px;
+  padding-right: 70px;
+}
+
+.member-combobox-list {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  max-height: min(320px, 50vh);
+  margin: 0;
+  padding: 6px 0;
+  overflow: auto;
+  list-style: none;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  background: var(--surface-panel);
+  box-shadow: var(--shadow-soft);
+}
+
+.member-combobox-group-label {
+  padding: 10px 12px 4px;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.member-combobox-group-label + .member-combobox-group-label {
+  margin-top: 4px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.member-combobox-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 40px;
+  padding: 8px 12px;
+  cursor: pointer;
+  color: var(--text-primary);
+}
+
+.member-combobox-option.is-active {
+  background: var(--surface-hover);
+}
+
+.member-combobox-option.is-selected {
+  font-weight: 700;
+}
+
+.member-combobox-option.is-disabled {
+  cursor: not-allowed;
+  color: var(--text-muted);
+  opacity: 0.72;
+}
+
+.member-combobox-option-name {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  font-size: 0.9rem;
+  line-height: 1.25;
+}
+
+.member-combobox-option-name small {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.member-combobox-option-hint {
+  flex: 0 0 auto;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+}
+
+.member-combobox-empty {
+  padding: 14px 12px;
+  color: var(--text-muted);
+  font-size: 0.84rem;
 }
 
 .picker-preview {
@@ -1374,148 +1465,12 @@ tbody tr:hover {
   transform: rotate(45deg);
 }
 
-/* Three-metric glance strip: who is higher on each axis at a glance. */
-.metric-glance {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  margin: 0 0 16px;
-  padding: 0;
-  list-style: none;
-}
-
-.metric-glance-item {
-  display: grid;
-  gap: 8px;
-  min-height: 100%;
-  padding: 14px 16px 15px;
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  background: var(--surface-panel);
-  box-shadow: var(--shadow-soft);
-}
-
-.metric-glance-item.lead-a,
-.metric-glance-item.lead-b {
-  border-color: color-mix(in srgb, var(--control-active) 28%, var(--border-subtle));
-}
-
-.metric-glance-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.metric-glance-label {
-  color: var(--text-primary);
-  font-size: 0.84rem;
-  font-weight: 750;
-}
-
-.metric-glance-badge {
-  flex: 0 0 auto;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: var(--surface-muted);
-  color: var(--text-muted);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
-
-.metric-glance-badge.lead-a,
-.metric-glance-badge.lead-b {
-  background: color-mix(in srgb, var(--control-active) 14%, var(--surface-muted));
-  color: var(--control-active);
-}
-
-.metric-glance-values {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  color: var(--text-muted);
-  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 1.05rem;
-  font-variant-numeric: tabular-nums;
-  font-weight: 650;
-}
-
-.metric-glance-values span {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.metric-glance-values .is-higher {
-  color: var(--control-active);
-  font-size: 1.12rem;
-  font-weight: 800;
-}
-
-.metric-glance-sep {
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.metric-glance-lead {
-  margin: 0;
-  color: var(--text-secondary);
-  font-size: 0.78rem;
-  line-height: 1.4;
-}
-
-.metric-glance-item.lead-a .metric-glance-lead,
-.metric-glance-item.lead-b .metric-glance-lead {
-  color: var(--text-primary);
-  font-weight: 650;
-}
-
-/* Unified 2×2 board: identity cards + radar + table share equal columns. */
+/* Table-first board: raw cm is primary; radar is secondary relative view. */
 .comparison-board {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: auto minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.85fr);
   gap: 14px;
   align-items: stretch;
-}
-
-.identity-card {
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
-  padding: 18px;
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  background: var(--surface-panel);
-  box-shadow: var(--shadow-soft);
-}
-
-.identity-card-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 14px;
-  color: var(--text-secondary);
-  font-size: 0.78rem;
-  font-weight: 700;
-}
-
-.identity-card-content {
-  flex: 1 1 auto;
-  min-height: 54px;
-}
-
-.identity-card .identity-copy small {
-  margin-top: 4px;
-}
-
-.identity-card > a {
-  display: inline-block;
-  margin-top: auto;
-  min-height: 34px;
-  padding-top: 13px;
-  font-size: 0.78rem;
 }
 
 .radar-figure,
@@ -1528,7 +1483,22 @@ tbody tr:hover {
   border: 1px solid var(--border-subtle);
   border-radius: 12px;
   background: var(--surface-panel);
+}
+
+.comparison-table-wrap {
   box-shadow: var(--shadow-soft);
+}
+
+.radar-figure {
+  box-shadow: none;
+}
+
+.picker-source-link {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 0.78rem;
+  font-weight: 650;
+  white-space: nowrap;
 }
 
 .radar-figure {
@@ -1590,7 +1560,7 @@ tbody tr:hover {
   max-width: 320px;
   margin-top: 8px;
   color: var(--text-muted);
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   line-height: 1.5;
   text-align: center;
 }
@@ -1635,42 +1605,39 @@ tbody tr:hover {
 
 .comparison-table td.value-higher {
   color: var(--text-primary);
-  font-weight: 800;
-  background: color-mix(in srgb, var(--control-active) 8%, transparent);
+  font-weight: 750;
 }
 
 .lead-chip {
   display: inline-flex;
   max-width: 100%;
   align-items: center;
-  padding: 3px 8px;
+  gap: 7px;
+  padding: 0;
   overflow: hidden;
-  border-radius: 999px;
-  background: var(--surface-muted);
+  border-radius: 0;
+  background: transparent;
   color: var(--text-muted);
   font-family: inherit;
-  font-size: 0.72rem;
-  font-weight: 700;
+  font-size: 0.78rem;
+  font-weight: 650;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+.lead-chip .series-marker {
+  width: 8px;
+  height: 8px;
+}
+
 .lead-chip.lead-a,
 .lead-chip.lead-b {
-  background: color-mix(in srgb, var(--control-active) 14%, var(--surface-muted));
-  color: var(--control-active);
+  color: var(--text-secondary);
 }
 
 .difference {
-  font-weight: 750;
-}
-
-.difference.positive {
-  color: var(--success);
-}
-
-.difference.negative {
-  color: var(--danger);
+  color: var(--text-secondary);
+  font-weight: 650;
 }
 
 .site-footer {
@@ -1798,10 +1765,6 @@ tbody tr:hover {
 }
 
 @media (max-width: 960px) and (min-width: 768px) {
-  .metric-glance {
-    grid-template-columns: 1fr;
-  }
-
   /* Drop progress bar on narrow tablets; keep compact B/W/H as secondary truth. */
   .ranking-table th:nth-child(5),
   .ranking-table td:nth-child(5) {
@@ -2486,14 +2449,8 @@ tbody tr:hover {
     margin-top: 15px;
   }
 
-  .metric-glance {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
   .comparison-board {
     grid-template-columns: 1fr;
-    grid-template-rows: none;
   }
 
   .radar-figure {
