@@ -2,6 +2,7 @@
 .claude/
 .pi/
 .impeccable/
+.codex/
 skills-lock.json
 
 # Playwright MCP temporary output
