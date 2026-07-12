@@ -18,7 +18,7 @@ colors:
   hover-surface: "#f0f4fa"
   ink: "#172033"
   ink-secondary: "#4d5b70"
-  ink-muted: "#718096"
+  ink-muted: "#5c6b80"
   border-subtle: "#dce3ee"
   border-strong: "#bac7d9"
   track: "#e5eaf2"
@@ -162,7 +162,7 @@ A cool blue-gray neutral ramp with a single **Signal Blue** accent for controls;
 - **Hover Veil** (`#f0f4fa` / `#253248`): Row and control hover.
 - **Ink** (`#172033` / `#edf2fa`): Primary text — high contrast mandatory.
 - **Ink Secondary** (`#4d5b70` / `#b9c5d6`): Descriptions, labels.
-- **Ink Muted** (`#718096` / `#8f9db1`): Meta, counts, placeholders (still aim ≥4.5:1).
+- **Ink Muted** (`#5c6b80` / `#8f9db1`): Meta, counts, placeholders (≥4.5:1 on page/panel in light).
 - **Border Subtle / Strong** (`#dce3ee` / `#bac7d9` light; `#2d3a4e` / `#52627b` dark): Panel edges and control strokes.
 - **Track / Chart Grid** (`#e5eaf2` / `#c7d1df` light; `#2b3749` / `#52627b` dark): Progress tracks and radar grid.
 

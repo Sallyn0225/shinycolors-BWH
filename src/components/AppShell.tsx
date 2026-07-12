@@ -76,6 +76,9 @@ export function AppShell({ state, onNavigate, children }: AppShellProps) {
 
   return (
     <div className="app-shell">
+      <a className="skip-link" href="#main-content">
+        跳到主要内容
+      </a>
       <header className="site-header">
         <div className="shell header-inner">
           <a className="brand" href={homeHref} aria-label="闪耀色彩三围资料首页">
@@ -127,7 +130,9 @@ export function AppShell({ state, onNavigate, children }: AppShellProps) {
         </div>
       </header>
 
-      <main className="shell main-content">{children}</main>
+      <main id="main-content" className="shell main-content" tabIndex={-1}>
+        {children}
+      </main>
 
       <footer className="site-footer">
         <div className="shell footer-grid">

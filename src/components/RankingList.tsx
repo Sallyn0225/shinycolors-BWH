@@ -58,7 +58,7 @@ export function RankingList({ rows, metric, showGlobalRank = false }: RankingLis
                 <td className="member-cell" data-label="成员">
                   <div className="member-identity">
                     <span className="avatar-frame" style={colorStyle(member.representativeColor.hex)}>
-                      <img src={member.iconUrl} alt="" width="54" height="54" />
+                      <img src={member.iconUrl} alt="" width="54" height="54" loading="lazy" decoding="async" />
                     </span>
                     <span className="identity-copy">
                       <strong>{member.nameJa}</strong>
@@ -69,7 +69,14 @@ export function RankingList({ rows, metric, showGlobalRank = false }: RankingLis
                 <td className="unit-cell" data-label="组合">
                   <span className="unit-identity">
                     <span className="unit-icon-frame" style={colorStyle(member.unitColors.soft)}>
-                      <img src={member.unitIconUrl} alt="" width="40" height="40" />
+                      <img
+                        src={member.unitIconUrl}
+                        alt=""
+                        width="40"
+                        height="40"
+                        loading="lazy"
+                        decoding="async"
+                      />
                     </span>
                     <span>
                       <strong title={member.unitNameJa}>{member.unitNameJa}</strong>
