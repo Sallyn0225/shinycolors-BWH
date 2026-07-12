@@ -2,7 +2,6 @@ import { useState, type CSSProperties } from 'react'
 import { allUnits, metricLabels, type Idol, type Metric } from '../data'
 import {
   formatAverage,
-  progressPercent,
   rankMembers,
   rankUnits,
   unitProgressPercent,
@@ -30,6 +29,8 @@ export function UnitsPage({ state, onNavigate }: UnitsPageProps) {
   const summaries = rankUnits(allUnits, state.metric, state.direction)
   const isDefault = state.metric === 'bust' && state.direction === 'desc'
   const [expandedIds, setExpandedIds] = useState<ReadonlySet<string>>(() => new Set())
+  const metricLabel = metricLabels[state.metric]
+  const directionLabel = state.direction === 'desc' ? '从高到低' : '从低到高'
 
   const reset = () => onNavigate({ route: 'units', metric: 'bust', direction: 'desc', theme: state.theme })
   const updateMetric = (metric: Metric) => onNavigate({ ...state, metric })
@@ -48,7 +49,7 @@ export function UnitsPage({ state, onNavigate }: UnitsPageProps) {
     <>
       <PageIntro
         title="组合榜"
-        description="比较 8 个组合在当前测量维度上的成员平均值。点击展开可查看组合内成员原始值；排序使用未舍入平均值，页面显示保留 1 位小数。"
+        description="比较 8 个组合在当前测量维度上的成员平均值。展开可查看组合内成员原始值；排序使用未舍入平均值，页面显示保留 1 位小数。"
         meta="8 个组合 / 成员平均值"
       />
 
@@ -63,14 +64,17 @@ export function UnitsPage({ state, onNavigate }: UnitsPageProps) {
       <section className="results-section" aria-labelledby="unit-results-title">
         <div className="results-heading">
           <div>
-            <h2 id="unit-results-title">8 个组合</h2>
+            <h2 id="unit-results-title">组合平均值</h2>
             <p>
-              当前维度：{metricLabels[state.metric].name} {metricLabels[state.metric].short}
-              ，可视化范围取 8 个组合平均值的最小与最大值。可同时展开多个组合查看成员。
+              当前维度：{metricLabel.name} {metricLabel.short}，{directionLabel}。
+              可同时展开多个组合查看成员原始厘米值。
+              <span className="results-bar-note">
+                组合平均值条的可视化范围取 8 个组合平均值的最小与最大值。
+              </span>
             </p>
           </div>
           <span className="results-count" aria-live="polite">
-            {metricLabels[state.metric].short}
+            {summaries.length} · {metricLabel.short} · {directionLabel}
           </span>
         </div>
 
@@ -100,6 +104,7 @@ export function UnitsPage({ state, onNavigate }: UnitsPageProps) {
                 const isExpanded = expandedIds.has(unit.id)
                 const panelId = `unit-members-${unit.id}`
                 const toggleId = `unit-expand-${unit.id}`
+                const labelId = `unit-members-label-${unit.id}`
                 const memberRows = rankMembers(unit.members, state.metric, state.direction)
 
                 return (
@@ -111,6 +116,7 @@ export function UnitsPage({ state, onNavigate }: UnitsPageProps) {
                     isExpanded={isExpanded}
                     panelId={panelId}
                     toggleId={toggleId}
+                    labelId={labelId}
                     memberRows={memberRows}
                     onToggle={() => toggleUnit(unit.id)}
                   />
@@ -131,6 +137,7 @@ interface UnitRowGroupProps {
   isExpanded: boolean
   panelId: string
   toggleId: string
+  labelId: string
   memberRows: RankedMember[]
   onToggle: () => void
 }
@@ -142,6 +149,7 @@ function UnitRowGroup({
   isExpanded,
   panelId,
   toggleId,
+  labelId,
   memberRows,
   onToggle,
 }: UnitRowGroupProps) {
@@ -151,10 +159,7 @@ function UnitRowGroup({
 
   return (
     <>
-      <tr
-        className={isExpanded ? 'unit-row is-expanded' : 'unit-row'}
-        onClick={onToggle}
-      >
+      <tr className={isExpanded ? 'unit-row is-expanded' : 'unit-row'}>
         <td className="rank-cell" data-label="名次">
           <span className="rank-number">{String(summary.rank).padStart(2, '0')}</span>
         </td>
@@ -199,13 +204,11 @@ function UnitRowGroup({
             className="unit-expand-button"
             aria-expanded={isExpanded}
             aria-controls={panelId}
-            onClick={(event) => {
-              event.stopPropagation()
-              onToggle()
-            }}
+            aria-label={isExpanded ? `收起 ${unit.nameJa} 成员` : `展开 ${unit.nameJa} 成员`}
+            onClick={onToggle}
           >
             <span className="unit-expand-chevron" aria-hidden="true" />
-            <span>{isExpanded ? '收起' : '展开'}</span>
+            <span aria-hidden="true">{isExpanded ? '收起' : '展开'}</span>
           </button>
         </td>
       </tr>
@@ -216,9 +219,9 @@ function UnitRowGroup({
               id={panelId}
               className="unit-member-panel"
               role="region"
-              aria-labelledby={toggleId}
+              aria-labelledby={labelId}
             >
-              <p className="unit-member-panel-label">
+              <p id={labelId} className="unit-member-panel-label">
                 {unit.nameJa} · 组内按{metricName}排序 · {summary.count} 人
               </p>
               <table className="unit-member-table">
@@ -232,16 +235,12 @@ function UnitRowGroup({
                     <th scope="col" className="number-heading">
                       {metricName} <span>{metricShort} · cm</span>
                     </th>
-                    <th scope="col" className="visual-heading">
-                      全局位置
-                    </th>
                     <th scope="col">B / W / H</th>
                   </tr>
                 </thead>
                 <tbody>
                   {memberRows.map(({ member, rank }) => {
                     const value = member.measurements[metric]
-                    const fillPercent = progressPercent(value, metric)
                     return (
                       <tr key={member.id}>
                         <td className="rank-cell" data-label="组内">
@@ -271,17 +270,6 @@ function UnitRowGroup({
                         <td className="main-value-cell" data-label={metricName}>
                           <strong>{value}</strong>
                           <span>cm</span>
-                        </td>
-                        <td className="bar-cell" data-label="全局位置">
-                          <div className="metric-bar" aria-hidden="true">
-                            <span
-                              className="metric-bar-fill"
-                              style={{
-                                width: `${fillPercent}%`,
-                                backgroundColor: member.representativeColor.hex,
-                              }}
-                            />
-                          </div>
                         </td>
                         <td className="all-values-cell" data-label="B / W / H">
                           <span className="compact-values">{compactMeasurements(member)}</span>

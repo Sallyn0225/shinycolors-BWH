@@ -1091,7 +1091,7 @@ tbody tr:hover {
 }
 
 .unit-table tbody tr.unit-row {
-  cursor: pointer;
+  cursor: default;
 }
 
 /* Expanded unit rows stay flat — no hover-veil wash, no extra elevation. */
@@ -1161,22 +1161,17 @@ tbody tr:hover {
 
 .unit-member-table th:nth-child(2),
 .unit-member-table td:nth-child(2) {
-  width: 28%;
+  width: 42%;
 }
 
 .unit-member-table th:nth-child(3),
 .unit-member-table td:nth-child(3) {
-  width: 100px;
+  width: 120px;
 }
 
 .unit-member-table th:nth-child(4),
 .unit-member-table td:nth-child(4) {
-  width: 30%;
-}
-
-.unit-member-table th:nth-child(5),
-.unit-member-table td:nth-child(5) {
-  width: 110px;
+  width: 140px;
 }
 
 .unit-member-table td {
@@ -1204,10 +1199,6 @@ tbody tr:hover {
 
 .unit-member-table .main-value-cell strong {
   font-size: 1.05rem;
-}
-
-.unit-member-table .metric-bar {
-  min-width: 96px;
 }
 
 .compare-picker-panel {
@@ -2157,8 +2148,7 @@ tbody tr:hover {
   }
 
   .unit-member-table .member-cell::before,
-  .unit-table .unit-member-table .rank-cell::before,
-  .unit-member-table .bar-cell::before {
+  .unit-table .unit-member-table .rank-cell::before {
     display: none;
   }
 
@@ -2169,25 +2159,12 @@ tbody tr:hover {
     gap: 8px;
   }
 
-  .unit-member-table .bar-cell {
-    order: 4;
-    grid-column: 1 / -1;
-    display: block;
-    width: 100%;
-    padding: 6px 0 2px;
-  }
-
   .unit-member-table .all-values-cell {
-    order: 5;
+    order: 4;
     grid-column: 1 / -1;
     border-top: 1px solid var(--border-subtle);
     margin-top: 2px;
     padding-top: 8px;
-  }
-
-  .unit-member-table .metric-bar {
-    width: 100%;
-    min-width: 0;
   }
 
   .unit-member-table tbody tr > td:nth-child(n) {
@@ -2286,18 +2263,62 @@ tbody tr:hover {
   .ranking-table .bar-cell,
   .ranking-table .source-cell,
   .ranking-table .all-values-cell,
-  .unit-table tbody tr.unit-row > .rank-cell,
-  .unit-table tbody tr.unit-row > .unit-main-cell,
+  .unit-table tbody tr.unit-row > .main-value-cell,
   .unit-table tbody tr.unit-row > .bar-cell,
-  .unit-table tbody tr.unit-row > .expand-cell {
+  .unit-table tbody tr.unit-row > .expand-cell,
+  .unit-table tbody tr.unit-row > td[data-label='成员数'],
+  .unit-table tbody tr.unit-row > td[data-label='成员范围'] {
     grid-column: 1 / -1;
     width: 100%;
     max-width: none;
   }
 
-  .unit-table tbody tr.unit-row > .rank-cell {
+  /* Numbers-first unit cards: identity + rank badge, then cm hero. */
+  .unit-table tbody tr.unit-row > .unit-main-cell {
+    order: 1;
+    grid-column: 1;
+    grid-row: 1;
     justify-content: flex-start;
+    min-width: 0;
+  }
+
+  .unit-table tbody tr.unit-row > .rank-cell {
+    order: 2;
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+    justify-content: flex-end;
+    width: auto;
+    max-width: none;
     padding-bottom: 0;
+  }
+
+  .unit-table tbody tr.unit-row > .main-value-cell {
+    order: 3;
+    justify-content: flex-start;
+    gap: 8px;
+    padding-top: 2px;
+    padding-bottom: 4px;
+  }
+
+  .unit-table tbody tr.unit-row > .main-value-cell strong {
+    font-size: 1.45rem;
+  }
+
+  .unit-table tbody tr.unit-row > .bar-cell {
+    order: 4;
+  }
+
+  .unit-table tbody tr.unit-row > td[data-label='成员数'] {
+    order: 5;
+  }
+
+  .unit-table tbody tr.unit-row > td[data-label='成员范围'] {
+    order: 6;
+  }
+
+  .unit-table tbody tr.unit-row > .expand-cell {
+    order: 7;
   }
 
   .ranking-table .rank-cell::before,
@@ -2344,11 +2365,6 @@ tbody tr:hover {
     white-space: nowrap;
   }
 
-  .unit-table tbody tr.unit-row > .main-value-cell {
-    justify-content: flex-end;
-    padding-top: 6px;
-  }
-
   /* Restore 资料 link on mobile cards (hidden at tablet widths). */
   .ranking-table tbody tr > td:nth-child(7) {
     display: flex;
@@ -2381,11 +2397,15 @@ tbody tr:hover {
     padding-top: 10px;
   }
 
-  .unit-table tbody tr.unit-row > td[data-label='成员数'],
-  .unit-table tbody tr.unit-row > td[data-label='成员范围'] {
+  /* Single quieter meta band after bar — demote 成员数/范围 vs average hero. */
+  .unit-table tbody tr.unit-row > td[data-label='成员数'] {
     border-top: 1px solid var(--border-subtle);
     margin-top: 2px;
-    padding-top: 10px;
+    padding-top: 8px;
+  }
+
+  .unit-table tbody tr.unit-row > td[data-label='成员范围'] {
+    padding-top: 4px;
   }
 
   .ranking-table .source-cell {
