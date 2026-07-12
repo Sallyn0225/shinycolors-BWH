@@ -4,10 +4,13 @@
 
 页面只呈现已发布的三围厘米数，**不生成综合指数、不评价身材**。
 
+**在线访问：** [https://shinycolors-bwh.pages.dev/](https://shinycolors-bwh.pages.dev/)
+
 [![React](https://img.shields.io/badge/React-19-61dafb?style=flat-square&logo=react&logoColor=white)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178c6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-7-646cff?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Node](https://img.shields.io/badge/Node-%3E%3D20.19-3c873a?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Cloudflare Pages](https://img.shields.io/badge/Cloudflare%20Pages-deployed-f38020?style=flat-square&logo=cloudflarepages&logoColor=white)](https://shinycolors-bwh.pages.dev/)
 
 ## 功能
 
