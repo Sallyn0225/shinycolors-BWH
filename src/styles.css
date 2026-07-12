@@ -1031,6 +1031,185 @@ tbody tr:hover {
   min-width: 150px;
 }
 
+.expand-heading {
+  text-align: right;
+}
+
+.expand-cell {
+  text-align: right;
+}
+
+.unit-expand-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 120ms ease;
+}
+
+.unit-expand-button:hover {
+  border-color: var(--control-active);
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+.unit-expand-button:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.unit-expand-button[aria-expanded='true'] {
+  border-color: var(--control-active);
+  background: color-mix(in srgb, var(--control-active) 10%, var(--surface-panel));
+  color: var(--control-active);
+}
+
+.unit-expand-chevron {
+  display: inline-block;
+  width: 0.45em;
+  height: 0.45em;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-0.1em) rotate(45deg);
+  transition: transform 180ms ease;
+}
+
+.unit-expand-button[aria-expanded='true'] .unit-expand-chevron {
+  transform: translateY(0.12em) rotate(225deg);
+}
+
+.unit-table tbody tr.unit-row {
+  cursor: pointer;
+}
+
+/* Expanded unit rows stay flat — no hover-veil wash, no extra elevation. */
+.unit-table tbody tr.unit-row.is-expanded > td,
+.unit-table tbody tr.unit-row.is-expanded:hover > td {
+  background: transparent;
+}
+
+.unit-table tbody tr.unit-detail-row > td {
+  padding: 0;
+  vertical-align: top;
+  background: var(--surface-muted);
+  border-top: 0;
+}
+
+.unit-table tbody tr.unit-detail-row:hover {
+  background: transparent;
+}
+
+.unit-table tbody tr.unit-detail-row > td:hover {
+  background: var(--surface-muted);
+}
+
+.unit-table tbody tr.unit-detail-row,
+.unit-table tbody tr.unit-detail-row > td,
+.unit-member-panel,
+.unit-member-table {
+  box-shadow: none;
+}
+
+.unit-member-panel {
+  padding: 4px 14px 16px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.unit-member-panel-label {
+  margin: 10px 0 8px;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.unit-member-table {
+  width: 100%;
+  table-layout: fixed;
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  background: var(--surface-panel);
+  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.unit-member-table thead th {
+  position: static;
+  padding: 10px 12px;
+  background: color-mix(in srgb, var(--surface-muted) 70%, var(--surface-panel));
+  box-shadow: none;
+  font-size: 0.68rem;
+}
+
+.unit-member-table th:nth-child(1),
+.unit-member-table td:nth-child(1) {
+  width: 58px;
+}
+
+.unit-member-table th:nth-child(2),
+.unit-member-table td:nth-child(2) {
+  width: 28%;
+}
+
+.unit-member-table th:nth-child(3),
+.unit-member-table td:nth-child(3) {
+  width: 100px;
+}
+
+.unit-member-table th:nth-child(4),
+.unit-member-table td:nth-child(4) {
+  width: 30%;
+}
+
+.unit-member-table th:nth-child(5),
+.unit-member-table td:nth-child(5) {
+  width: 110px;
+}
+
+.unit-member-table td {
+  padding: 11px 12px;
+}
+
+.unit-member-table tbody tr + tr td {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.unit-member-table tbody tr:hover {
+  background: var(--surface-hover);
+}
+
+.unit-member-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 9px;
+}
+
+.unit-member-avatar img {
+  width: 44px;
+  height: 44px;
+}
+
+.unit-member-table .main-value-cell strong {
+  font-size: 1.05rem;
+}
+
+.unit-member-table .metric-bar {
+  min-width: 96px;
+}
+
 .compare-picker-panel {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
@@ -1856,7 +2035,7 @@ tbody tr:hover {
   }
 
   .ranking-table tbody tr,
-  .unit-table tbody tr {
+  .unit-table tbody tr.unit-row {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 6px 12px;
@@ -1866,6 +2045,154 @@ tbody tr:hover {
     border-radius: 12px;
     background: var(--surface-panel);
     box-shadow: var(--shadow-soft);
+  }
+
+  .unit-table tbody tr.unit-detail-row {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .unit-table tbody tr.unit-detail-row > td {
+    display: block;
+    width: 100%;
+    padding: 0;
+    background: transparent;
+  }
+
+  .unit-table tbody tr.unit-detail-row > td::before {
+    display: none;
+  }
+
+  .unit-member-panel {
+    margin-top: -4px;
+    padding: 12px 12px 14px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    background: var(--surface-muted);
+  }
+
+  .unit-member-panel-label {
+    margin: 0 0 10px;
+  }
+
+  .unit-member-table {
+    display: block;
+    width: 100%;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .unit-member-table thead {
+    display: none;
+  }
+
+  .unit-member-table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .unit-member-table tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px 10px;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    background: var(--surface-panel);
+  }
+
+  .unit-member-table tbody tr:hover {
+    background: var(--surface-panel);
+  }
+
+  .unit-member-table tbody tr + tr td {
+    border-top: 0;
+  }
+
+  .unit-member-table td {
+    display: flex;
+    min-width: 0;
+    width: auto;
+    max-width: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 3px 0;
+  }
+
+  .unit-member-table td::before {
+    flex: 0 0 auto;
+    color: var(--text-muted);
+    content: attr(data-label);
+    font-size: 0.68rem;
+  }
+
+  .unit-member-table .member-cell {
+    order: 1;
+    grid-column: 1;
+    grid-row: 1;
+    justify-content: flex-start;
+    min-width: 0;
+  }
+
+  /* Higher specificity so unit-row rank rules (grid-column 1 / -1, flex-start)
+     do not pull the badge over the avatar. */
+  .unit-table .unit-member-table .rank-cell {
+    order: 2;
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+    justify-content: flex-end;
+    width: auto;
+    max-width: none;
+    padding-bottom: 0;
+  }
+
+  .unit-member-table .member-cell::before,
+  .unit-table .unit-member-table .rank-cell::before,
+  .unit-member-table .bar-cell::before {
+    display: none;
+  }
+
+  .unit-member-table .main-value-cell {
+    order: 3;
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
+  .unit-member-table .bar-cell {
+    order: 4;
+    grid-column: 1 / -1;
+    display: block;
+    width: 100%;
+    padding: 6px 0 2px;
+  }
+
+  .unit-member-table .all-values-cell {
+    order: 5;
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--border-subtle);
+    margin-top: 2px;
+    padding-top: 8px;
+  }
+
+  .unit-member-table .metric-bar {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .unit-member-table tbody tr > td:nth-child(n) {
+    width: auto;
+    max-width: none;
   }
 
   /* Numbers-first mobile card: identity + rank, then cm hero, then secondary rows. */
@@ -1914,25 +2241,28 @@ tbody tr:hover {
   }
 
   .ranking-table tbody tr + tr td,
-  .unit-table tbody tr + tr td {
+  .unit-table tbody tr.unit-row + tr.unit-row td,
+  .unit-table tbody tr.unit-row + tr.unit-detail-row td {
     border-top: 0;
   }
 
   .ranking-table tbody tr:hover,
-  .unit-table tbody tr:hover {
+  .unit-table tbody tr.unit-row:hover,
+  .unit-table tbody tr.unit-row.is-expanded {
     background: var(--surface-panel);
+    box-shadow: var(--shadow-soft);
   }
 
   /* Kill desktop column widths that were collapsing mobile cards.
      nth-child width rules are more specific; override them explicitly. */
   .ranking-table tbody tr > td:nth-child(n),
-  .unit-table tbody tr > td:nth-child(n) {
+  .unit-table tbody tr.unit-row > td:nth-child(n) {
     width: auto;
     max-width: none;
   }
 
   .ranking-table td,
-  .unit-table td {
+  .unit-table tbody tr.unit-row > td {
     display: flex;
     min-width: 0;
     width: auto;
@@ -1944,45 +2274,59 @@ tbody tr:hover {
   }
 
   .ranking-table td::before,
-  .unit-table td::before {
+  .unit-table tbody tr.unit-row > td::before {
     flex: 0 0 auto;
     color: var(--text-muted);
     content: attr(data-label);
     font-size: 0.7rem;
   }
 
+  /* Scope to unit summary rows only — never nested member ranks. */
   .ranking-table .unit-cell,
   .ranking-table .bar-cell,
   .ranking-table .source-cell,
   .ranking-table .all-values-cell,
-  .unit-table .rank-cell,
-  .unit-table .unit-main-cell,
-  .unit-table .bar-cell,
-  .unit-table .source-cell {
+  .unit-table tbody tr.unit-row > .rank-cell,
+  .unit-table tbody tr.unit-row > .unit-main-cell,
+  .unit-table tbody tr.unit-row > .bar-cell,
+  .unit-table tbody tr.unit-row > .expand-cell {
     grid-column: 1 / -1;
     width: 100%;
     max-width: none;
   }
 
-  .unit-table .rank-cell {
+  .unit-table tbody tr.unit-row > .rank-cell {
     justify-content: flex-start;
     padding-bottom: 0;
   }
 
   .ranking-table .rank-cell::before,
-  .unit-table .rank-cell::before,
+  .unit-table tbody tr.unit-row > .rank-cell::before,
   .ranking-table .member-cell::before,
   .ranking-table .unit-cell::before,
   .ranking-table .bar-cell::before,
-  .unit-table .unit-main-cell::before,
-  .unit-table .bar-cell::before {
+  .unit-table tbody tr.unit-row > .unit-main-cell::before,
+  .unit-table tbody tr.unit-row > .bar-cell::before {
     display: none;
   }
 
   .ranking-table .member-cell,
   .ranking-table .unit-cell,
-  .unit-table .unit-main-cell {
+  .unit-table tbody tr.unit-row > .unit-main-cell {
     justify-content: flex-start;
+  }
+
+  .unit-table .expand-cell {
+    justify-content: stretch;
+    padding-top: 8px;
+  }
+
+  .unit-table .expand-cell::before {
+    display: none;
+  }
+
+  .unit-expand-button {
+    width: 100%;
   }
 
   .member-identity,
@@ -2000,7 +2344,7 @@ tbody tr:hover {
     white-space: nowrap;
   }
 
-  .unit-table .main-value-cell {
+  .unit-table tbody tr.unit-row > .main-value-cell {
     justify-content: flex-end;
     padding-top: 6px;
   }
@@ -2017,14 +2361,14 @@ tbody tr:hover {
   }
 
   .ranking-table .bar-cell,
-  .unit-table .bar-cell {
+  .unit-table tbody tr.unit-row > .bar-cell {
     display: block;
     width: 100%;
     padding: 8px 0 4px;
   }
 
   .ranking-table .metric-bar,
-  .unit-table .metric-bar {
+  .unit-table tbody tr.unit-row .metric-bar {
     width: 100%;
     min-width: 0;
   }
@@ -2037,21 +2381,19 @@ tbody tr:hover {
     padding-top: 10px;
   }
 
-  .unit-table td[data-label='成员数'],
-  .unit-table td[data-label='成员范围'] {
+  .unit-table tbody tr.unit-row > td[data-label='成员数'],
+  .unit-table tbody tr.unit-row > td[data-label='成员范围'] {
     border-top: 1px solid var(--border-subtle);
     margin-top: 2px;
     padding-top: 10px;
   }
 
-  .ranking-table .source-cell,
-  .unit-table .source-cell {
+  .ranking-table .source-cell {
     justify-content: flex-end;
     padding-top: 6px;
   }
 
-  .ranking-table .source-cell::before,
-  .unit-table .source-cell::before {
+  .ranking-table .source-cell::before {
     margin-right: auto;
   }
 
