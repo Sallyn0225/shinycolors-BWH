@@ -2,3 +2,7 @@
 .claude/
 .pi/
 skills-lock.json
+
+# Playwright MCP temporary output
+.playwright-mcp/
+network-assets.txt
