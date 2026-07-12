@@ -87,6 +87,9 @@ export function AppShell({ state, onNavigate, children }: AppShellProps) {
           <div>
             <p className="footer-title">闪耀色彩三围资料</p>
             <p className="footer-note">面向粉丝的静态资料工具，页面只呈现原始厘米数值，不生成评价或综合指数。</p>
+            <p className="footer-disclaimer">
+              非官方粉丝数据工具，角色与作品权利归原权利方所有。
+            </p>
           </div>
           <div className="footer-meta">
             <span>单位：cm</span>

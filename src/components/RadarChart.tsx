@@ -37,6 +37,11 @@ function pointsForLevel(level: number) {
     .join(' ')
 }
 
+/** Axis-aligned diamond polygon; avoids SVG/CSS rotate transform fights that displace markers. */
+function diamondPoints(x: number, y: number, size: number) {
+  return `${x},${y - size} ${x + size},${y} ${x},${y + size} ${x - size},${y}`
+}
+
 interface RadarChartProps {
   memberA: Idol
   memberB: Idol
@@ -70,12 +75,27 @@ export function RadarChart({ memberA, memberB }: RadarChartProps) {
         <polygon points={pointsB} className="radar-shape radar-shape-b" style={{ '--series-color': memberB.representativeColor.hex } as CSSProperties} />
         {axes.map(({ metric, angle }) => {
           const point = pointAt(relativePosition(memberA.measurements[metric], metric), angle)
-          return <circle key={`a-${metric}`} cx={point.x} cy={point.y} r="5" className="radar-point radar-point-a" style={{ fill: memberA.representativeColor.hex }} />
+          return (
+            <circle
+              key={`a-${metric}`}
+              cx={point.x}
+              cy={point.y}
+              r="5"
+              className="radar-point radar-point-a"
+              style={{ fill: memberA.representativeColor.hex }}
+            />
+          )
         })}
         {axes.map(({ metric, angle }) => {
           const point = pointAt(relativePosition(memberB.measurements[metric], metric), angle)
-          const size = 5
-          return <rect key={`b-${metric}`} x={point.x - size} y={point.y - size} width={size * 2} height={size * 2} className="radar-point radar-point-b" style={{ fill: memberB.representativeColor.hex }} transform={`rotate(45 ${point.x} ${point.y})`} />
+          return (
+            <polygon
+              key={`b-${metric}`}
+              points={diamondPoints(point.x, point.y, 5)}
+              className="radar-point radar-point-b"
+              style={{ fill: memberB.representativeColor.hex }}
+            />
+          )
         })}
         {axes.map(({ metric, angle }) => {
           const point = pointAt(1.22, angle)

@@ -87,8 +87,8 @@ export function UnitsPage({ state, onNavigate }: UnitsPageProps) {
                           <img src={unit.iconUrl} alt="" width="40" height="40" />
                         </span>
                         <span>
-                          <strong>{unit.nameJa}</strong>
-                          <span>{unit.name}</span>
+                          <strong title={unit.nameJa}>{unit.nameJa}</strong>
+                          <span title={unit.name}>{unit.name}</span>
                         </span>
                       </span>
                     </td>

@@ -7,8 +7,33 @@ skills-lock.json
 .playwright-mcp/
 network-assets.txt
 
-# Node build output
+# Node / Vite build output
 node_modules/
 dist/
 .vite/
 *.local
+
+# TypeScript incremental builds
+*.tsbuildinfo
+
+# Agent / browser audit screenshots (generated during UI checks)
+audit-*.png
+after-*.png
+final-*.png
+fix-*.png
+page-*.png
+page-*.yml
+
+# Test / coverage artifacts
+coverage/
+*.lcov
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+.idea/
+.vscode/*
+!.vscode/extensions.json

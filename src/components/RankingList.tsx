@@ -62,8 +62,8 @@ export function RankingList({ rows, metric }: RankingListProps) {
                       <img src={member.unitIconUrl} alt="" width="40" height="40" />
                     </span>
                     <span>
-                      <strong>{member.unitNameJa}</strong>
-                      <span>{member.unitName}</span>
+                      <strong title={member.unitNameJa}>{member.unitNameJa}</strong>
+                      <span title={member.unitName}>{member.unitName}</span>
                     </span>
                   </span>
                 </td>
