@@ -72,7 +72,13 @@ export function OverallPage({ state, onNavigate }: OverallPageProps) {
         {rankedMembers.length ? (
           <RankingList rows={rankedMembers} metric={state.metric} showGlobalRank={isFiltered} />
         ) : (
-          <EmptyState hasQuery={Boolean(state.query)} onClearQuery={() => updateQuery('')} onReset={reset} />
+          <EmptyState
+            hasQuery={Boolean(state.query)}
+            hasUnit={Boolean(state.unitId)}
+            unitName={selectedUnit?.nameJa}
+            onClearQuery={() => updateQuery('')}
+            onReset={reset}
+          />
         )}
       </section>
     </>

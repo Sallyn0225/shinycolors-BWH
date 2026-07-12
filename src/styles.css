@@ -371,6 +371,11 @@ img {
   padding-bottom: 72px;
 }
 
+/* Skip-link target: avoid a second focus ring fighting the skip control. */
+#main-content:focus {
+  outline: none;
+}
+
 .page-intro {
   display: flex;
   align-items: flex-end;
@@ -443,6 +448,7 @@ img {
 
 /* Labels only — do not match nested wrappers like .search-input-wrap. */
 .control-block > span:not([class]),
+.control-block > label,
 .control-block legend,
 .member-picker > label {
   display: block;
@@ -475,6 +481,7 @@ img {
 .segment {
   display: inline-flex;
   min-width: 0;
+  min-height: 42px;
   align-items: center;
   justify-content: center;
   gap: 8px;

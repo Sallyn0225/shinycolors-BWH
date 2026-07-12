@@ -101,7 +101,12 @@ export function RankingList({ rows, metric, showGlobalRank = false }: RankingLis
                   <span className="compact-values">{compactMeasurements(member)}</span>
                 </td>
                 <td className="source-cell" data-label="资料">
-                  <a href={member.sourceUrl} target="_blank" rel="noreferrer">
+                  <a
+                    href={member.sourceUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`${member.nameJa} 的官方资料（在新标签打开）`}
+                  >
                     查看资料 <span aria-hidden="true">↗</span>
                   </a>
                 </td>
@@ -116,11 +121,22 @@ export function RankingList({ rows, metric, showGlobalRank = false }: RankingLis
 
 interface EmptyStateProps {
   hasQuery: boolean
+  hasUnit?: boolean
+  unitName?: string
   onClearQuery: () => void
   onReset: () => void
 }
 
-export function EmptyState({ hasQuery, onClearQuery, onReset }: EmptyStateProps) {
+export function EmptyState({ hasQuery, hasUnit, unitName, onClearQuery, onReset }: EmptyStateProps) {
+  const detail =
+    hasQuery && hasUnit && unitName
+      ? `在「${unitName}」中没有匹配当前姓名搜索的成员。可清除姓名搜索，或重置全部筛选。`
+      : hasQuery
+        ? '没有匹配当前姓名搜索的成员。可清除姓名搜索，或重置全部筛选。'
+        : hasUnit && unitName
+          ? `「${unitName}」下没有可显示的成员。可重置全部筛选。`
+          : '没有找到符合条件的成员。可重置全部筛选。'
+
   return (
     <section className="empty-state" aria-live="polite">
       <span className="empty-mark" aria-hidden="true">
@@ -128,7 +144,7 @@ export function EmptyState({ hasQuery, onClearQuery, onReset }: EmptyStateProps)
       </span>
       <div>
         <h3 className="empty-title">没有找到符合条件的成员</h3>
-        <p>保留当前控件，你可以清除姓名搜索或重置全部筛选。</p>
+        <p>{detail}</p>
         <div className="empty-actions">
           {hasQuery ? (
             <button type="button" className="button button-primary" onClick={onClearQuery}>
