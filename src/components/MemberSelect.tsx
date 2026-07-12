@@ -42,14 +42,21 @@ function SelectedMember({ member, unit }: { member: Idol; unit?: Unit }) {
         <img src={member.iconUrl} alt="" width="54" height="54" />
       </span>
       <span className="identity-copy">
-        <strong>{member.nameJa}</strong>
+        <strong>
+          <i
+            className="member-color-dot"
+            title="代表色"
+            aria-label={`代表色 ${member.representativeColor.hex}`}
+            style={{ backgroundColor: member.representativeColor.hex }}
+          />
+          {member.nameJa}
+        </strong>
         <span>{member.nameEn}</span>
         <small>
           <i aria-hidden="true" style={{ backgroundColor: unit?.colors.primary }} />
           {member.unitNameJa}
         </small>
       </span>
-      <span className="color-swatch" title="代表色" aria-label={`代表色 ${member.representativeColor.hex}`} />
     </div>
   )
 }

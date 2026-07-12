@@ -11,6 +11,20 @@ interface ComparePageProps {
   onNavigate: (state: CompareState, replace?: boolean) => void
 }
 
+type LeadSide = 'a' | 'b' | 'tie'
+
+const metrics: Metric[] = ['bust', 'waist', 'hip']
+
+function getLead(delta: number): LeadSide {
+  if (delta > 0) return 'a'
+  if (delta < 0) return 'b'
+  return 'tie'
+}
+
+function formatDifference(value: number) {
+  return value > 0 ? `+${value}` : String(value)
+}
+
 export function ComparePage({ state, onNavigate }: ComparePageProps) {
   const memberA = state.memberA ? memberById.get(state.memberA) : undefined
   const memberB = state.memberB ? memberById.get(state.memberB) : undefined
@@ -37,10 +51,24 @@ export function ComparePage({ state, onNavigate }: ComparePageProps) {
 
       <section className="compare-picker-panel" aria-label="选择对比成员">
         <MemberSelect label="成员 A" value={state.memberA} otherValue={state.memberB} onChange={chooseA} />
-        <button type="button" className="swap-button" onClick={swap} disabled={!ready} aria-label="交换成员 A 和成员 B">
-          <span aria-hidden="true">↔</span>
-          <span>交换双方</span>
-        </button>
+        <div className="swap-slot">
+          <span className="swap-slot-spacer" aria-hidden="true">
+            成员
+          </span>
+          <button type="button" className="swap-button" onClick={swap} disabled={!ready} aria-label="交换成员 A 和成员 B">
+            <svg className="swap-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+              <path
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M7 8h11M15 5l3 3-3 3M17 16H6M9 13l-3 3 3 3"
+              />
+            </svg>
+            <span className="swap-button-label">交换双方</span>
+          </button>
+        </div>
         <MemberSelect label="成员 B" value={state.memberB} otherValue={state.memberA} onChange={chooseB} />
       </section>
 
@@ -62,29 +90,84 @@ export function ComparePage({ state, onNavigate }: ComparePageProps) {
 }
 
 function ComparisonResult({ memberA, memberB }: { memberA: Idol; memberB: Idol }) {
+  const rows = metrics.map((metric) => {
+    const valueA = memberA.measurements[metric]
+    const valueB = memberB.measurements[metric]
+    const delta = difference(memberA, memberB, metric)
+    return { metric, valueA, valueB, delta, lead: getLead(delta) }
+  })
+
   return (
     <section className="comparison-result" aria-labelledby="comparison-title">
       <div className="comparison-heading">
         <div>
-          <h2 id="comparison-title">{memberA.nameJa} 与 {memberB.nameJa}</h2>
+          <h2 id="comparison-title">
+            {memberA.nameJa} 与 {memberB.nameJa}
+          </h2>
           <p>图形使用三项维度各自的全局范围归一化，表格保留原始厘米数值。</p>
         </div>
         <div className="series-legend" aria-label="图表图例">
-          <span><i className="series-marker series-marker-a" aria-hidden="true" />A {memberA.nameJa}</span>
-          <span><i className="series-marker series-marker-b" aria-hidden="true" />B {memberB.nameJa}</span>
+          <span>
+            <i className="series-marker series-marker-a" aria-hidden="true" />A {memberA.nameJa}
+          </span>
+          <span>
+            <i className="series-marker series-marker-b" aria-hidden="true" />B {memberB.nameJa}
+          </span>
         </div>
       </div>
 
-      <div className="identity-cards">
+      <MetricGlance rows={rows} memberA={memberA} memberB={memberB} />
+
+      <div className="comparison-board">
         <IdentityCard label="A" member={memberA} />
         <IdentityCard label="B" member={memberB} />
-      </div>
-
-      <div className="comparison-grid">
         <RadarChart memberA={memberA} memberB={memberB} />
-        <ComparisonTable memberA={memberA} memberB={memberB} />
+        <ComparisonTable rows={rows} memberA={memberA} memberB={memberB} />
       </div>
     </section>
+  )
+}
+
+function MetricGlance({
+  rows,
+  memberA,
+  memberB,
+}: {
+  rows: Array<{ metric: Metric; valueA: number; valueB: number; delta: number; lead: LeadSide }>
+  memberA: Idol
+  memberB: Idol
+}) {
+  return (
+    <ul className="metric-glance" aria-label="各维度数值更高一方">
+      {rows.map(({ metric, valueA, valueB, delta, lead }) => {
+        const label = `${metricLabels[metric].name} ${metricLabels[metric].short}`
+        const higherName = lead === 'a' ? memberA.nameJa : lead === 'b' ? memberB.nameJa : null
+        const margin = Math.abs(delta)
+        const leadText =
+          lead === 'tie' ? '相同' : `${lead === 'a' ? 'A' : 'B'} · ${higherName} 更高 ${margin} cm`
+
+        return (
+          <li key={metric} className={`metric-glance-item lead-${lead}`}>
+            <div className="metric-glance-top">
+              <span className="metric-glance-label">{label}</span>
+              <span className={`metric-glance-badge lead-${lead}`}>{lead === 'tie' ? '相同' : '更高'}</span>
+            </div>
+            <div className="metric-glance-values" aria-hidden="true">
+              <span className={lead === 'a' ? 'is-higher' : undefined}>
+                <i className="series-marker series-marker-a" />
+                {valueA}
+              </span>
+              <span className="metric-glance-sep">:</span>
+              <span className={lead === 'b' ? 'is-higher' : undefined}>
+                <i className="series-marker series-marker-b" />
+                {valueB}
+              </span>
+            </div>
+            <p className="metric-glance-lead">{leadText}</p>
+          </li>
+        )
+      })}
+    </ul>
   )
 }
 
@@ -92,7 +175,8 @@ function IdentityCard({ label, member }: { label: string; member: Idol }) {
   return (
     <article className="identity-card">
       <div className="identity-card-label">
-        <span className={`series-marker series-marker-${label.toLowerCase()}`} aria-hidden="true" />成员 {label}
+        <span className={`series-marker series-marker-${label.toLowerCase()}`} aria-hidden="true" />
+        成员 {label}
       </div>
       <div className="identity-card-content">
         <span className="avatar-frame" style={{ '--identity-color': member.representativeColor.hex } as CSSProperties}>
@@ -101,48 +185,67 @@ function IdentityCard({ label, member }: { label: string; member: Idol }) {
         <div className="identity-copy">
           <strong>{member.nameJa}</strong>
           <span>{member.nameEn}</span>
-          <small>{member.unitNameJa} / {member.unitName}</small>
+          <small>
+            {member.unitNameJa} / {member.unitName}
+          </small>
         </div>
       </div>
-      <a href={member.sourceUrl} target="_blank" rel="noreferrer">打开官方资料 <span aria-hidden="true">↗</span></a>
+      <a href={member.sourceUrl} target="_blank" rel="noreferrer">
+        打开官方资料 <span aria-hidden="true">↗</span>
+      </a>
     </article>
   )
 }
 
-function formatDifference(value: number) {
-  return value > 0 ? `+${value}` : String(value)
-}
-
-function ComparisonTable({ memberA, memberB }: { memberA: Idol; memberB: Idol }) {
-  const metrics: Metric[] = ['bust', 'waist', 'hip']
+function ComparisonTable({
+  rows,
+  memberA,
+  memberB,
+}: {
+  rows: Array<{ metric: Metric; valueA: number; valueB: number; delta: number; lead: LeadSide }>
+  memberA: Idol
+  memberB: Idol
+}) {
   return (
     <div className="comparison-table-wrap">
       <table className="comparison-table">
-        <caption>原始 B/W/H 数值与差值，差值定义为 A 减 B</caption>
+        <caption>原始 B/W/H 数值与差值，差值定义为 A 减 B；更高一列会高亮</caption>
         <thead>
           <tr>
             <th scope="col">维度</th>
             <th scope="col">A · {memberA.nameJa}</th>
             <th scope="col">B · {memberB.nameJa}</th>
             <th scope="col">A - B</th>
+            <th scope="col">更高</th>
           </tr>
         </thead>
         <tbody>
-          {metrics.map((metric) => {
-            const valueA = memberA.measurements[metric]
-            const valueB = memberB.measurements[metric]
-            const delta = difference(memberA, memberB, metric)
-            return (
-              <tr key={metric}>
-                <th scope="row">{metricLabels[metric].name} {metricLabels[metric].short}</th>
-                <td>{valueA} cm</td>
-                <td>{valueB} cm</td>
-                <td className={delta > 0 ? 'difference positive' : delta < 0 ? 'difference negative' : 'difference'}>
-                  {formatDifference(delta)} cm
-                </td>
-              </tr>
-            )
-          })}
+          {rows.map(({ metric, valueA, valueB, delta, lead }) => (
+            <tr key={metric} className={`lead-row-${lead}`}>
+              <th scope="row">
+                {metricLabels[metric].name} {metricLabels[metric].short}
+              </th>
+              <td className={lead === 'a' ? 'value-higher' : undefined}>{valueA} cm</td>
+              <td className={lead === 'b' ? 'value-higher' : undefined}>{valueB} cm</td>
+              <td className={delta > 0 ? 'difference positive' : delta < 0 ? 'difference negative' : 'difference'}>
+                {formatDifference(delta)} cm
+              </td>
+              <td>
+                <span
+                  className={`lead-chip lead-${lead}`}
+                  title={
+                    lead === 'tie'
+                      ? '两人数值相同'
+                      : lead === 'a'
+                        ? `${memberA.nameJa} 数值更高`
+                        : `${memberB.nameJa} 数值更高`
+                  }
+                >
+                  {lead === 'tie' ? '相同' : lead === 'a' ? 'A 更高' : 'B 更高'}
+                </span>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

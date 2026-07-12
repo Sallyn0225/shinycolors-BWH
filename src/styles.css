@@ -952,9 +952,29 @@ tbody tr:hover {
 .compare-picker-panel {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  align-items: center;
+  align-items: start;
   gap: 22px;
   padding: 22px;
+}
+
+/* Sit beside the select row (below labels), not the full picker including preview. */
+.swap-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Same metrics as .member-picker > label so the circular control lines up with the selects. */
+.swap-slot-spacer {
+  display: block;
+  margin: 0 0 8px;
+  color: transparent;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  user-select: none;
+  pointer-events: none;
 }
 
 .member-picker select {
@@ -966,6 +986,12 @@ tbody tr:hover {
   padding-top: 13px;
 }
 
+.picker-preview .identity-copy strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .picker-preview .identity-copy small {
   display: inline-flex;
   align-items: center;
@@ -973,8 +999,10 @@ tbody tr:hover {
   margin-top: 2px;
 }
 
+.picker-preview .identity-copy strong i,
 .picker-preview .identity-copy small i {
   display: inline-block;
+  flex: 0 0 auto;
   width: 8px;
   height: 8px;
   border: 1px solid var(--border-strong);
@@ -989,41 +1017,45 @@ tbody tr:hover {
   font-size: 0.8rem;
 }
 
-.color-swatch {
-  width: 14px;
-  height: 14px;
-  flex: 0 0 auto;
-  margin-left: auto;
-  border: 1px solid var(--border-strong);
-  border-radius: 50%;
-  background: var(--identity-color);
-}
-
 .swap-button {
   display: inline-flex;
-  min-width: 82px;
-  min-height: 44px;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1px;
+  width: 46px;
+  height: 46px;
+  min-width: 46px;
+  min-height: 46px;
+  padding: 0;
   border: 1px solid var(--border-strong);
-  border-radius: 8px;
+  border-radius: 50%;
   background: var(--surface-muted);
-  color: var(--text-secondary);
+  color: var(--control-active);
   font-size: 0.74rem;
-  transition: background-color 160ms ease, color 160ms ease, opacity 160ms ease, transform 120ms ease;
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease, opacity 160ms ease, transform 120ms ease;
 }
 
-.swap-button span:first-child {
-  color: var(--control-active);
-  font-size: 1.05rem;
-  line-height: 1;
+.swap-icon {
+  display: block;
+  flex: 0 0 auto;
+}
+
+/* Desktop / tablet: icon-only circular control. */
+.swap-button-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .swap-button:hover:not(:disabled) {
+  border-color: var(--control-active);
   background: var(--surface-hover);
-  color: var(--text-primary);
+  color: var(--control-active-hover);
 }
 
 .swap-button:disabled {
@@ -1090,18 +1122,121 @@ tbody tr:hover {
   transform: rotate(45deg);
 }
 
-.identity-cards {
+/* Three-metric glance strip: who is higher on each axis at a glance. */
+.metric-glance {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.metric-glance-item {
+  display: grid;
+  gap: 8px;
+  min-height: 100%;
+  padding: 14px 16px 15px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  background: var(--surface-panel);
+  box-shadow: var(--shadow-soft);
+}
+
+.metric-glance-item.lead-a,
+.metric-glance-item.lead-b {
+  border-color: color-mix(in srgb, var(--control-active) 28%, var(--border-subtle));
+}
+
+.metric-glance-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.metric-glance-label {
+  color: var(--text-primary);
+  font-size: 0.84rem;
+  font-weight: 750;
+}
+
+.metric-glance-badge {
+  flex: 0 0 auto;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--surface-muted);
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.metric-glance-badge.lead-a,
+.metric-glance-badge.lead-b {
+  background: color-mix(in srgb, var(--control-active) 14%, var(--surface-muted));
+  color: var(--control-active);
+}
+
+.metric-glance-values {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  color: var(--text-muted);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 650;
+}
+
+.metric-glance-values span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.metric-glance-values .is-higher {
+  color: var(--control-active);
+  font-size: 1.12rem;
+  font-weight: 800;
+}
+
+.metric-glance-sep {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.metric-glance-lead {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.metric-glance-item.lead-a .metric-glance-lead,
+.metric-glance-item.lead-b .metric-glance-lead {
+  color: var(--text-primary);
+  font-weight: 650;
+}
+
+/* Unified 2×2 board: identity cards + radar + table share equal columns. */
+.comparison-board {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: auto minmax(0, 1fr);
   gap: 14px;
-  margin-bottom: 18px;
+  align-items: stretch;
 }
 
 .identity-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
   padding: 18px;
   border: 1px solid var(--border-subtle);
   border-radius: 12px;
   background: var(--surface-panel);
+  box-shadow: var(--shadow-soft);
 }
 
 .identity-card-label {
@@ -1115,6 +1250,7 @@ tbody tr:hover {
 }
 
 .identity-card-content {
+  flex: 1 1 auto;
   min-height: 54px;
 }
 
@@ -1124,21 +1260,18 @@ tbody tr:hover {
 
 .identity-card > a {
   display: inline-block;
+  margin-top: auto;
   min-height: 34px;
   padding-top: 13px;
   font-size: 0.78rem;
 }
 
-.comparison-grid {
-  display: grid;
-  grid-template-columns: minmax(300px, 0.88fr) minmax(420px, 1.12fr);
-  align-items: center;
-  gap: 20px;
-}
-
 .radar-figure,
 .comparison-table-wrap {
+  display: flex;
+  flex-direction: column;
   min-width: 0;
+  min-height: 100%;
   margin: 0;
   border: 1px solid var(--border-subtle);
   border-radius: 12px;
@@ -1147,14 +1280,14 @@ tbody tr:hover {
 }
 
 .radar-figure {
-  display: grid;
-  justify-items: center;
-  padding: 25px 26px 19px;
+  align-items: center;
+  justify-content: center;
+  padding: 22px 20px 16px;
 }
 
 .radar-chart {
   display: block;
-  width: min(100%, 390px);
+  width: min(100%, 360px);
   height: auto;
   overflow: visible;
 }
@@ -1202,8 +1335,8 @@ tbody tr:hover {
 }
 
 .radar-caption {
-  max-width: 330px;
-  margin-top: 7px;
+  max-width: 320px;
+  margin-top: 8px;
   color: var(--text-muted);
   font-size: 0.72rem;
   line-height: 1.5;
@@ -1214,16 +1347,22 @@ tbody tr:hover {
   overflow: hidden;
 }
 
+.comparison-table {
+  width: 100%;
+  height: 100%;
+}
+
 .comparison-table caption {
-  padding: 18px 18px 7px;
+  padding: 16px 16px 8px;
   color: var(--text-secondary);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   text-align: left;
 }
 
 .comparison-table th,
 .comparison-table td {
-  padding: 16px 18px;
+  padding: 14px 14px;
+  vertical-align: middle;
 }
 
 .comparison-table thead th {
@@ -1240,6 +1379,34 @@ tbody tr:hover {
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+}
+
+.comparison-table td.value-higher {
+  color: var(--text-primary);
+  font-weight: 800;
+  background: color-mix(in srgb, var(--control-active) 8%, transparent);
+}
+
+.lead-chip {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  padding: 3px 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--surface-muted);
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lead-chip.lead-a,
+.lead-chip.lead-b {
+  background: color-mix(in srgb, var(--control-active) 14%, var(--surface-muted));
+  color: var(--control-active);
 }
 
 .difference {
@@ -1344,10 +1511,6 @@ tbody tr:hover {
     grid-column: 4;
   }
 
-  .comparison-grid {
-    grid-template-columns: minmax(270px, 0.8fr) minmax(390px, 1.2fr);
-  }
-
   /* Free space for JP names: hide compact B/W/H (main value already shown). */
   .ranking-table th:nth-child(6),
   .ranking-table td:nth-child(6) {
@@ -1383,6 +1546,10 @@ tbody tr:hover {
 }
 
 @media (max-width: 960px) and (min-width: 768px) {
+  .metric-glance {
+    grid-template-columns: 1fr;
+  }
+
   /* Drop progress bar on narrow tablets so long JP unit names stay readable. */
   .ranking-table th:nth-child(5),
   .ranking-table td:nth-child(5) {
@@ -1776,11 +1943,38 @@ tbody tr:hover {
     padding: 15px;
   }
 
+  .swap-slot {
+    width: 100%;
+  }
+
+  .swap-slot-spacer {
+    display: none;
+  }
+
   .swap-button {
     width: 100%;
+    height: auto;
+    min-width: 0;
     min-height: 42px;
-    flex-direction: row;
+    padding: 0 14px;
+    border-radius: 8px;
     gap: 8px;
+    color: var(--text-secondary);
+  }
+
+  .swap-button-label {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: nowrap;
+    color: inherit;
+  }
+
+  .swap-button:hover:not(:disabled) {
+    color: var(--text-primary);
   }
 
   .picker-empty {
@@ -1797,12 +1991,14 @@ tbody tr:hover {
     margin-top: 15px;
   }
 
-  .identity-cards {
+  .metric-glance {
     grid-template-columns: 1fr;
+    gap: 10px;
   }
 
-  .comparison-grid {
+  .comparison-board {
     grid-template-columns: 1fr;
+    grid-template-rows: none;
   }
 
   .radar-figure {
@@ -1814,7 +2010,7 @@ tbody tr:hover {
   }
 
   .comparison-table {
-    min-width: 460px;
+    min-width: 520px;
   }
 
   .footer-grid {
