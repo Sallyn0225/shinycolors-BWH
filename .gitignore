@@ -1,6 +1,7 @@
 .agents/
 .claude/
 .pi/
+.impeccable/
 skills-lock.json
 
 # Playwright MCP temporary output
